@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <title>Fa.</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Meow+Script&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #0F1113;
+            color: white;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 200px auto;
+            height: 100vh;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .profile-pic {
+            height: 100px;
+            aspect-ratio: 1;
+            background-color: red;
+
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .user-name {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .edit-btn {
+            border: 1px solid rgb(163, 163, 163);
+            padding: 2px 12px;
+            margin: 0 auto;
+            border-radius: 20px;
+        }
+
+
+        .button-of-nav-which-will-work {
+            display: flex;
+            align-items: center;
+            margin: 10px auto;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 70%;
+            text-decoration: none;
+            color: white;
+        }
+
+        .button-of-nav-which-will-work:hover {
+            background-color: #1b1b1c;
+        }
+
+        .active-nav {
+            background-color: #353537;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 10px;
+        }
+
+        nav p {
+            margin: 0;
+        }
+
+        .right-content-main {
+            display: grid;
+            grid-template-rows: 50px auto;
+        }
+
+
+        .main-search-input {
+            background-color: transparent;
+            outline: none;
+            color: white;
+            border: none;
+        }
+
+        .nav-icon {
+            height: 20px;
+            margin-right: 5px;
+            aspect-ratio: 1;
+            background-size: cover;
+            filter: invert(100%);
+            -webkit-filter: invert(100%);
+            background-position: center;
+        }
+
+        .actual-content-finally {
+            height: calc(100vh - 50px);
+            overflow-y: scroll;
+            margin: 0 3px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f100;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 20px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+
+        main {
+            display: none;
+            padding: 10px;
+        }
+
+        main:target {
+            display: block;
+        }
+
+        #data table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #data th,
+        #data td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        #data tr:nth-child(even) {
+            background-color: #080a0e;
+        }
+
+        #data tr:nth-child(odd) {
+            background-color: #202630;
+        }
+
+        #data th {
+            background-color: #080a0e;
+            color: white;
+        }
+
+        #data input[type="date"] {
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #00000000;
+            outline: none;
+            border: none;
+            filter: invert(1);
+        }
+
+        #date-input::-webkit-calendar-picker-indicator {
+            opacity: 0;
+            /* Hide the default calendar icon for webkit browsers */
+        }
+
+        #date-input::-webkit-inner-spin-button,
+        #date-input::-webkit-clear-button {
+            display: none;
+        }
+
+        #date-input::-moz-inner-spin-button,
+        #date-input::-moz-clear-button {
+            display: none;
+        }
+
+
+        #data button {
+            border-radius: 20px;
+            background-color: #FECACA;
+            padding: 4px 15px;
+            color: #6b3c3c;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+
+        .master-function {
+            background-color: rgb(0, 0, 0);
+            border-radius: 10px;
+            padding: 9px;
+            display: flex;
+            flex-direction: column;
+            width: 250px;
+            aspect-ratio: 1;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .dates-data {
+            color: rgba(255, 255, 255, 0.61);
+            text-decoration: none;
+            padding: 4px;
+            display: block;
+        }
+
+        .dates-data:hover {
+            background-color: rgb(75, 75, 75);
+            border-radius: 5px;
+        }
+
+        .days-of-week {
+            text-align: left;
+            font-weight: 350;
+        }
+
+        .active-date {
+            color: red;
+            cursor: pointer;
+        }
+
+        td {
+            color: rgb(157, 157, 157);
+        }
+
+
+        .predicted-date {
+            background-color: rgba(0, 255, 0, 0.3);
+            /* Adjust color for predicted date highlighting */
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .stat-cards {
+            display: grid;
+            grid-template-columns: auto 260px;
+            align-items: center;
+            background-image: url('https://64.media.tumblr.com/830efd28d6247cb035fa4d317fa21fce/tumblr_o99dj0IxHn1vyr2huo1_1280.gif');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+        }
+
+        canvas {
+            background-color: #000000;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 10px 0;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .kacha-papad-pakka-papad {
+            display: grid;
+            grid-template-columns: 600px auto;
+            align-items: center;
+        }
+
+        .bugir-menu {
+            display: none;
+        }
+
+        .for-phone {
+            display: none;
+        }
+
+        @media (max-width: 950px) {
+            .kacha-papad-pakka-papad {
+                display: grid;
+                grid-template-columns: auto;
+                align-items: center;
+            }
+
+            canvas {
+                background-color: #000000;
+                border-radius: 10px;
+                margin: 10px auto;
+                padding: 10px 0;
+                width: 100%;
+            }
+
+
+            #prediction {
+                height: 20vh;
+                align-items: center;
+            }
+
+            .master-function {
+                width: 96%;
+            }
+        }
+
+        @media (max-width: 625px) {
+            .right-content-main nav p {
+                display: none;
+            }
+
+            .for-phone {
+                display: flex;
+            }
+
+            .right-side-nav-content {
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            body {
+                grid-template-columns: auto;
+            }
+
+            .nav-content-all-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                padding: 10px 0;
+                display: none;
+            }
+
+            .shikayat {
+                display: none;
+            }
+
+            .bugir-menu {
+                cursor: pointer;
+                display: block;
+            }
+
+        }
+
+        @media (max-width: 425px) {
+            .stat-cards {
+                grid-template-columns: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="nav-content-all-grid" class="nav-content-all-grid" style="border-right: 1px solid rgb(63, 63, 63);">
+        <div style="display: flex; align-items: center; margin: 25px; font-size: 20px;">
+            <svg style="margin-right: 15px;" fill="#f3ff52" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
+                stroke="#f3ff52">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <title>ionicons-v5_logos</title>
+                    <path
+                        d="M505.57,234.62c-3.28-3.53-26.82-32.29-39.51-47.79-6.75-8.24-12.08-14.75-14.32-17.45l-.18-.22-.2-.21c-5.22-5.83-12.64-12.51-23.78-12.51a39.78,39.78,0,0,0-5.41.44c-.37.05-.75.11-1.15.15-2.45.27-10.06,1.5-28.14,4.48-14,2.29-35.11,5.77-38.31,6.07l-.71.06-.69.13c-10,1.78-16.62,6.22-19.56,13.19-1.55,3.68-3.22,11.15,2.94,19.86,1.53,2.22,6.83,9.56,15.94,22.17,6.06,8.4,12.87,17.82,18.75,26L259.9,275,150.66,96.05l-.2-.34-.23-.33-.44-.65C145.32,88.17,139.76,80,123.7,80h0c-1.13,0-2.31,0-3.63.11-4.6.25-21.42,1.57-40.89,3.11-21.49,1.69-50.9,4-54.72,4.1h-.73l-.79.08c-9.14.89-15.77,4.6-19.7,11-6.55,10.69-1.42,22.69.26,26.63C6.87,133,37.56,197.7,64.63,254.81c18,37.94,36.58,77.17,38.1,80.65a34.85,34.85,0,0,0,32.94,21.59,46.62,46.62,0,0,0,9.86-1.1l.21,0,.2-.05c13.86-3.38,57.83-14.54,89.2-22.59,1.9,3.32,3.9,6.83,6,10.44,21.93,38.5,37.9,66.35,43.16,73.46C287,421,295,432,310.06,432c5.46,0,10.46-1.4,15.74-2.89l1.53-.43.06,0h.06c10.53-3,150.69-52.16,157.87-55.35l.22-.1c5.44-2.41,13.66-6.05,16.18-15.4,1.65-6.12.18-12.33-4.38-18.46l-.07-.09-.07-.09c-.85-1.1-4-5.21-8.27-10.9-9.13-12.07-23.88-31.57-36.84-48.54,17.37-4.5,38.8-10.11,43.38-11.55,11.47-3.43,14.94-10.69,16-14.73C512.26,250.32,513.29,242.27,505.57,234.62Zm-320,58.19c-17.81,4.17-30.22,7.08-37.89,8.9-6.67-13.34-19.74-39.65-32.5-65.33C85.44,176.46,70.08,145.61,62,129.48l8.15-.7c13.34-1.15,31.61-2.72,41.78-3.57,16.76,28.26,74.32,125.3,96.3,162.3ZM427.58,172h0ZM310.06,416.4h0Zm53.67-56.95c-24.21,8-37.33,12.37-44.42,14.74-6.3-10.34-20.16-33.52-32.47-54.19l115.7-29.48c5,6.81,14.57,19.72,33.46,44.93C417.93,341.49,387.8,351.47,363.73,359.45ZM419.6,237.82l-23.76-31.53c13.67-2.39,21.54-3.77,26.15-4.6l12,14.88,11.94,14.82C437.73,233.38,428.19,235.71,419.6,237.82Z">
+                    </path>
+                </g>
+            </svg>
+            TEMPUS
+        </div>
+
+        <div>
+            <div style="background-image: url('https://wallpapers-clan.com/wp-content/uploads/2023/01/aesthetic-anime-girl-pfp-3.jpg');"
+                class="profile-pic"></div>
+            <p class="user-name">Sushmi QT</p>
+            <div style="width: min-content; margin: 0 auto;"><a href="#edit-acc" class="edit-btn">Edit</a></div>
+        </div>
+
+        <main id="edit-acc"></main>
+
+        <a href="#dashboard" class="button-of-nav-which-will-work active-nav">
+            <div class="nav-icon" style="background-image: url('https://www.svgrepo.com/show/459911/dashboard.svg');">
+            </div>
+            <div>Dashboard</div>
+        </a>
+        <a href="#data" class="button-of-nav-which-will-work">
+            <div class="nav-icon"
+                style="background-image: url('https://www.svgrepo.com/show/384697/database-data-base.svg');">
+            </div>
+            <div>Data</div>
+        </a>
+    </div>
+
+    <div class="right-content-main">
+        <nav>
+            <p style="font-size: 25px; font-weight: 200; height: min-content;">Statistics</p>
+            <div class="right-side-nav-content" style="display: flex; height: min-content; align-items: center;">
+                <div style="display: flex;">
+                    <div class="nav-icon"
+                        style="background-image: url('https://www.svgrepo.com/show/522266/search.svg');"></div>
+                    <input class="main-search-input" type="search" placeholder="Search...">
+                </div>
+                <a class="shikayat" href=""
+                    style="background-color: #FFF17A; padding: 12px 20px; border-radius: 10px; color: black; text-decoration: none;">Shikayat</a>
+                <a class="bugir-menu"
+                    style="padding: 10px; border: 1px solid white; border-radius: 10px; margin-left: 20px;">
+                    <div class="nav-icon"
+                        style="background-image: url('https://www.svgrepo.com/show/528866/bell.svg'); margin: 0; height: 20px;">
+                    </div>
+                </a>
+            </div>
+        </nav>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const buttons = document.querySelectorAll('.button-of-nav-which-will-work');
+                const sections = document.querySelectorAll('main');
+
+                buttons.forEach(button => {
+                    button.addEventListener('click', function (e) {
+                        e.preventDefault(); // Prevent the default link behavior
+
+                        // Remove active-nav class from all buttons
+                        buttons.forEach(btn => btn.classList.remove('active-nav'));
+
+                        // Add active-nav class to the clicked button
+                        this.classList.add('active-nav');
+
+                        // Get the target section ID from the button's href
+                        const targetId = this.getAttribute('href').substring(1);
+
+                        // Hide all sections
+                        sections.forEach(section => section.style.display = 'none');
+
+                        // Show the target section
+                        document.getElementById(targetId).style.display = 'block';
+                    });
+                });
+
+                // Initially hide all sections except the one corresponding to the active button
+                const activeButton = document.querySelector('.button-of-nav-which-will-work.active-nav');
+                const activeSectionId = activeButton.getAttribute('href').substring(1);
+                sections.forEach(section => section.style.display = 'none');
+                document.getElementById(activeSectionId).style.display = 'block';
+            });
+        </script>
+
+
+        <div class="actual-content-finally">
+            <main id="dashboard">
+                <div class="stat-cards">
+                    <div>
+                        <div id="prediction" style="margin-top: 20px; max-width: 250px;text-align: center; margin: 0 auto; padding: 5px; border-radius: 10px;
+                        text-shadow:
+                        -1px -1px 0 #D37768,
+                        1px -1px 0 #D37768,
+                        -1px 1px 0 #D37768,
+                        1px 1px 0 #D37768;  
+                        "></div>
+                    </div>
+                    <div class="master-function" style="display: flex; justify-content: space-between;">
+                        <table>
+                            <th class="days-of-week">Su</th>
+                            <th class="days-of-week">Mo</th>
+                            <th class="days-of-week">Tu</th>
+                            <th class="days-of-week">We</th>
+                            <th class="days-of-week">Th</th>
+                            <th class="days-of-week">Fr</th>
+                            <th class="days-of-week">Sa</th>
+                            <thead>
+                                <tr>
+                                    <th colspan="7" id="monthYear"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="calendarBody">
+                            </tbody>
+                        </table>
+
+                        <a href="#data" class="button-of-nav-which-will-work for-phone">
+                            <div class="nav-icon"
+                                style="background-image: url('https://www.svgrepo.com/show/384697/database-data-base.svg');">
+                            </div>
+                            <div>Edit Data</div>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div class="kacha-papad-pakka-papad">
+                    <canvas id="myChart"></canvas>
+                    <p style="text-align: center; max-width: 320px; margin: 0 auto;font-size: 27px;" id="quote">
+                        Loading...</p>
+                    <script>
+                        const quotes = [
+                            "So jao didi.",
+                            "Take a chill pill",
+                            "chocolate khalo 😉!",
+                            "Red velvet cake 🍰",
+                            "you don't need to work today",
+                            "Duniya jaye khaddey mai",
+                            "Let me do ur work: 01125532553",
+                            "paani pe le behn",
+                            "U deserve momos",
+                            "Relaxation is not lazy",
+                            "sometimes it's better to set easy",
+                            "get some coffee",
+                            "sometimes ur first love is sleep (soja!)"
+                        ];
+
+                        function generateQuote() {
+                            const randomIndex = Math.floor(Math.random() * quotes.length);
+                            document.getElementById('quote').innerText = quotes[randomIndex];
+                        }
+                        window.onload = generateQuote;
+                    </script>
+
+                </div>
+
+            </main>
+
+            <main id="data">
+
+
+                <a href="#dashboard" class="button-of-nav-which-will-work active-nav">
+                    <div class="nav-icon"
+                        style="background-image: url('https://www.svgrepo.com/show/459911/dashboard.svg');">
+                    </div>
+                    <div>Back to Dashboard</div>
+                </a>
+                <div class="section">
+                    <table id="periodTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Days Since Last Period</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <button style="margin: 10px 0;" onclick="addRow()">Add Date</button>
+
+                </div>
+
+                <!-- notifications should be there - jeniliya -->
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        loadTableData();
+                        calculateDifferences();
+                        checkNotification();
+                    });
+
+                    let myChart;
+
+                    function addRow(date = '') {
+                        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
+                        const newRow = table.insertRow();
+
+                        const dateCell = newRow.insertCell(0);
+                        const diffCell = newRow.insertCell(1);
+                        const actionCell = newRow.insertCell(2);
+
+                        dateCell.innerHTML = `<input type="date" value="${date}" onchange="calculateDifferences(); saveTableData();">`;
+                        diffCell.innerText = '-';
+                        actionCell.innerHTML = `<button onclick="deleteRow(this)">Delete</button>`;
+
+                        calculateDifferences();
+                        saveTableData();
+                    }
+
+                    function deleteRow(button) {
+                        const row = button.parentNode.parentNode;
+                        row.parentNode.removeChild(row);
+                        calculateDifferences();
+                        saveTableData();
+                    }
+
+                    function calculateDifferences() {
+                        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
+                        const rows = table.rows;
+                        let previousDate = null;
+                        let totalDays = 0;
+                        let periodCount = 0;
+                        const cycleLengths = [];
+
+                        for (let i = 0; i < rows.length; i++) {
+                            const dateInput = rows[i].cells[0].getElementsByTagName('input')[0];
+                            const diffCell = rows[i].cells[1];
+
+                            if (dateInput.value) {
+                                const currentDate = new Date(dateInput.value);
+                                if (previousDate) {
+                                    const diffTime = Math.abs(currentDate - previousDate);
+                                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                    diffCell.innerText = diffDays;
+                                    cycleLengths.push(diffDays);
+                                    totalDays += diffDays;
+                                    periodCount++;
+                                } else {
+                                    diffCell.innerText = '-';
+                                }
+                                previousDate = currentDate;
+                            } else {
+                                diffCell.innerText = '-';
+                                previousDate = null;
+                            }
+                        }
+
+                        if (periodCount > 0) {
+                            const avgCycleLength = totalDays / periodCount;
+                            const stdDev = calculateStandardDeviation(cycleLengths);
+                            const lastDateInput = rows[rows.length - 1].cells[0].getElementsByTagName('input')[0];
+                            if (lastDateInput.value) {
+                                const lastDate = new Date(lastDateInput.value);
+                                const predictedNextDate = new Date(lastDate.getTime() + avgCycleLength * 24 * 60 * 60 * 1000);
+                                displayPrediction(predictedNextDate, stdDev);
+                                scheduleNotification(predictedNextDate);
+                                updateChart(cycleLengths);
+                                renderCalendar(predictedNextDate.getFullYear(), predictedNextDate.getMonth(), predictedNextDate);
+                            }
+                        } else {
+                            displayPrediction(null, null);
+                            updateChart([]);
+                            renderCalendar(new Date().getFullYear(), new Date().getMonth(), null);
+                        }
+                    }
+
+                    function calculateStandardDeviation(array) {
+                        const n = array.length;
+                        const mean = array.reduce((a, b) => a + b) / n;
+                        return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n);
+                    }
+
+                    function displayPrediction(predictedDate, stdDev) {
+                        const predictionDiv = document.getElementById('prediction');
+                        if (predictedDate) {
+                            const predictionDate = predictedDate.toISOString().split('T')[0];
+                            const lowerBound = new Date(predictedDate.getTime() - stdDev * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+                            const upperBound = new Date(predictedDate.getTime() + stdDev * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+                            predictionDiv.innerText = `Predicted Next Period Date: ${predictionDate} (± ${stdDev.toFixed(1)} days: ${lowerBound} to ${upperBound})`;
+                        } else {
+                            predictionDiv.innerText = '';
+                        }
+                    }
+
+                    function saveTableData() {
+                        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
+                        const rows = table.rows;
+                        const data = [];
+
+                        for (let i = 0; i < rows.length; i++) {
+                            const dateInput = rows[i].cells[0].getElementsByTagName('input')[0];
+                            if (dateInput.value) {
+                                data.push(dateInput.value);
+                            }
+                        }
+
+                        localStorage.setItem('periodData', JSON.stringify(data));
+                    }
+
+                    function loadTableData() {
+                        const data = JSON.parse(localStorage.getItem('periodData') || '[]');
+                        data.forEach(date => addRow(date));
+                    }
+
+                    function renderCalendar(year, month, predictedDate) {
+                        const calendarBody = document.getElementById('calendarBody');
+                        const monthYear = document.getElementById('monthYear');
+                        const firstDayOfMonth = new Date(year, month, 1);
+                        const lastDayOfMonth = new Date(year, month + 1, 0);
+                        const daysInMonth = lastDayOfMonth.getDate();
+                        const startingDay = firstDayOfMonth.getDay();
+
+                        const monthNames = ["January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"
+                        ];
+
+                        monthYear.textContent = `${monthNames[month]} ${year}`;
+
+                        let dateCells = '';
+                        let dateIncrement = 1;
+
+                        for (let i = 0; i < 6; i++) {
+                            let row = '<tr>';
+                            for (let j = 0; j < 7; j++) {
+                                if (i === 0 && j < startingDay) {
+                                    row += '<td></td>';
+                                } else if (dateIncrement > daysInMonth) {
+                                    break;
+                                } else {
+                                    const isPredicted = predictedDate && predictedDate.getDate() === dateIncrement && predictedDate.getMonth() === month && predictedDate.getFullYear() === year;
+
+                                    row += `<td${isPredicted ? ' class="active-date"' : ''}>${dateIncrement}</td>`;
+                                    dateIncrement++;
+                                }
+                            }
+                            row += '</tr>';
+                            dateCells += row;
+                        }
+
+                        calendarBody.innerHTML = dateCells;
+                    }
+
+                    function updateChart(cycleLengths) {
+                        const ctx = document.getElementById('myChart').getContext('2d');
+                        const data = {
+                            labels: cycleLengths.map((_, index) => `Cycle ${index + 1}`),
+                            datasets: [{
+                                label: 'Cycle Length in Days',
+                                data: cycleLengths,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }]
+                        };
+
+                        const options = {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        };
+
+                        if (myChart) {
+                            myChart.data = data;
+                            myChart.options = options;
+                            myChart.update();
+                        } else {
+                            myChart = new Chart(ctx, {
+                                type: 'line',
+                                data: data,
+                                options: options
+                            });
+                        }
+                    }
+
+                    function requestNotificationPermission() {
+                        if ('Notification' in window && Notification.permission !== 'granted') {
+                            Notification.requestPermission().then(permission => {
+                                if (permission === 'granted') {
+                                    console.log('Notification permission granted.');
+                                }
+                            });
+                        }
+                    }
+
+                    function scheduleNotification(predictedDate) {
+                        if ('Notification' in window && Notification.permission === 'granted') {
+                            const today = new Date();
+                            const timeToNotify = predictedDate.getTime() - today.getTime();
+                            if (timeToNotify > 0) {
+                                setTimeout(() => {
+                                    new Notification('Period Reminder', {
+                                        body: 'Your period is predicted to start today.',
+                                    });
+                                }, timeToNotify);
+                            }
+                            localStorage.setItem('notificationDate', predictedDate.toISOString());
+                        }
+                    }
+
+                    function checkNotification() {
+                        const storedNotificationDate = localStorage.getItem('notificationDate');
+                        if (storedNotificationDate) {
+                            const predictedDate = new Date(storedNotificationDate);
+                            const today = new Date();
+                            if (predictedDate.toDateString() === today.toDateString()) {
+                                new Notification('Period Reminder', {
+                                    body: 'Your period is predicted to start today.',
+                                });
+                            }
+                        }
+                    }
+
+                    requestNotificationPermission();
+                </script>
+
+                <script>
+                    importScripts(
+                        'https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js'
+                    );
+
+                    // This will work!
+                    workbox.routing.registerRoute(
+                        ({ request }) => request.destination === 'image',
+                        new workbox.strategies.CacheFirst()
+                    ); A
+                </script>
+
+
+            </main>
+        </div>
+    </div>
+
+</body>
+
+</html>
