@@ -255,7 +255,7 @@
             display: grid;
             grid-template-columns: auto 260px;
             align-items: center;
-            background-image: url('https://64.media.tumblr.com/830efd28d6247cb035fa4d317fa21fce/tumblr_o99dj0IxHn1vyr2huo1_1280.gif');
+            background-image: url('https://i.pinimg.com/originals/16/0a/28/160a28b2ac6c367734ba304bbc22a41f.gif');
             background-size: cover;
             background-position: center;
             border-radius: 10px;
@@ -276,9 +276,6 @@
             align-items: center;
         }
 
-        .bugir-menu {
-            display: none;
-        }
 
         .for-phone {
             display: none;
@@ -308,6 +305,7 @@
             .master-function {
                 width: 96%;
             }
+
         }
 
         @media (max-width: 625px) {
@@ -335,21 +333,20 @@
                 display: none;
             }
 
-            .shikayat {
-                display: none;
-            }
-
-            .bugir-menu {
-                cursor: pointer;
-                display: block;
-            }
-
         }
 
         @media (max-width: 425px) {
             .stat-cards {
                 grid-template-columns: auto;
             }
+        }
+
+        .bugir-menu {
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -373,13 +370,71 @@
         </div>
 
         <div>
-            <div style="background-image: url('https://wallpapers-clan.com/wp-content/uploads/2023/01/aesthetic-anime-girl-pfp-3.jpg');"
+            <div id="profile-pic"
+                style="background-image: url('https://wallpapers-clan.com/wp-content/uploads/2023/01/aesthetic-anime-girl-pfp-3.jpg');"
                 class="profile-pic"></div>
-            <p class="user-name">Sushmi QT</p>
-            <div style="width: min-content; margin: 0 auto;"><a href="#edit-acc" class="edit-btn">Edit</a></div>
-        </div>
+            <p class="user-name">
+                <input type="text" style="color: white; text-align: center; background-color: transparent;"
+                    id="user-name-input" style="border: none; background: transparent;" readonly>
+            </p>
 
-        <main id="edit-acc"></main>
+            <input type="text" id="profile-pic-url" class="hidden"
+                placeholder="Enter image URL" onchange="updateProfilePicture()">
+
+            <div style="width: min-content; margin:auto; cursor: pointer;"><a onclick="editProfile()"
+                    class="edit-btn">Edit</a><a href="javascript:void(0)" class="edit-btn hidden" id="save-btn"
+                    onclick="saveProfile()">Save</a></div>
+        </div>
+        <script>
+            function editProfile() {
+                const nameInput = document.getElementById('user-name-input');
+                const picUrlInput = document.getElementById('profile-pic-url');
+                nameInput.removeAttribute('readonly');
+                nameInput.style.border = '1px solid #ccc';
+                picUrlInput.classList.remove('hidden');
+                picUrlInput.style.background = 'transparent';
+                document.querySelector('.edit-btn').style.display = 'none';
+                document.getElementById('save-btn').classList.remove('hidden');
+            }
+
+            function saveProfile() {
+                const nameInput = document.getElementById('user-name-input');
+                const picUrlInput = document.getElementById('profile-pic-url');
+                nameInput.setAttribute('readonly', true);
+                nameInput.style.border = 'none';
+                nameInput.style.background = 'transparent';
+                picUrlInput.classList.add('hidden');
+                document.querySelector('.edit-btn').style.display = 'inline-block';
+                document.getElementById('save-btn').classList.add('hidden');
+
+                // Save to localStorage
+                localStorage.setItem('userName', nameInput.value);
+                localStorage.setItem('profilePic', picUrlInput.value || document.getElementById('profile-pic').style.backgroundImage.slice(5, -2));
+            }
+
+            function updateProfilePicture() {
+                const picUrlInput = document.getElementById('profile-pic-url');
+                if (picUrlInput.value) {
+                    document.getElementById('profile-pic').style.backgroundImage = `url(${picUrlInput.value})`;
+                }
+            }
+
+            function editProfilePicture() {
+                document.getElementById('profile-pic-url').focus();
+            }
+
+            // Load saved data from localStorage
+            document.addEventListener('DOMContentLoaded', () => {
+                const savedName = localStorage.getItem('userName');
+                const savedPic = localStorage.getItem('profilePic');
+                if (savedName) {
+                    document.getElementById('user-name-input').value = savedName;
+                }
+                if (savedPic) {
+                    document.getElementById('profile-pic').style.backgroundImage = `url(${savedPic})`;
+                }
+            });
+        </script>
 
         <a href="#dashboard" class="button-of-nav-which-will-work active-nav">
             <div class="nav-icon" style="background-image: url('https://www.svgrepo.com/show/459911/dashboard.svg');">
@@ -403,14 +458,15 @@
                         style="background-image: url('https://www.svgrepo.com/show/522266/search.svg');"></div>
                     <input class="main-search-input" type="search" placeholder="Search...">
                 </div>
-                <a class="shikayat" href=""
-                    style="background-color: #FFF17A; padding: 12px 20px; border-radius: 10px; color: black; text-decoration: none;">Shikayat</a>
+
                 <a class="bugir-menu"
-                    style="padding: 10px; border: 1px solid white; border-radius: 10px; margin-left: 20px;">
+                    style="padding: 10px; border: 1px solid white; border-radius: 10px; margin-left: 20px; display: flex; cursor: pointer;"
+                    onclick="createGoogleCalendarEvent();">
                     <div class="nav-icon"
-                        style="background-image: url('https://www.svgrepo.com/show/528866/bell.svg'); margin: 0; height: 20px;">
-                    </div>
+                        style="background-image: url('https://www.svgrepo.com/show/528866/bell.svg'); margin: 0 5px 0 0; height: 20px;">
+                    </div>Notify me
                 </a>
+
             </div>
         </nav>
         <script>
@@ -497,15 +553,15 @@
                             "So jao didi.",
                             "Take a chill pill",
                             "chocolate khalo 😉!",
+                            "Red velvet cake 🍰",
                             "you don't need to work today",
                             "Duniya jaye khaddey mai",
-                            "Let me do ur work: 01125530112553",
+                            "Let me do ur work: 01125532553",
                             "paani pe le behn",
                             "U deserve momos",
                             "Relaxation is not lazy",
                             "sometimes it's better to set easy",
-                            "sometimes ur first love is sleep (soja!)",
-                            "Naak mai ungli kr le no-one will know 👍"
+                            "sometimes ur first love is sleep (soja!)"
                         ];
 
                         function generateQuote() {
@@ -522,7 +578,7 @@
             <main id="data">
 
 
-                <a href="#dashboard" class="button-of-nav-which-will-work active-nav">
+                <a href="#dashboard" class="button-of-nav-which-will-work active-nav mob-display">
                     <div class="nav-icon"
                         style="background-image: url('https://www.svgrepo.com/show/459911/dashboard.svg');">
                     </div>
@@ -550,10 +606,10 @@
                     document.addEventListener('DOMContentLoaded', () => {
                         loadTableData();
                         calculateDifferences();
-                        checkNotification();
                     });
 
                     let myChart;
+                    let predictedNextDate = null; // Make sure this is defined globally
 
                     function addRow(date = '') {
                         const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
@@ -615,9 +671,8 @@
                             const lastDateInput = rows[rows.length - 1].cells[0].getElementsByTagName('input')[0];
                             if (lastDateInput.value) {
                                 const lastDate = new Date(lastDateInput.value);
-                                const predictedNextDate = new Date(lastDate.getTime() + avgCycleLength * 24 * 60 * 60 * 1000);
+                                predictedNextDate = new Date(lastDate.getTime() + avgCycleLength * 24 * 60 * 60 * 1000);
                                 displayPrediction(predictedNextDate, stdDev);
-                                scheduleNotification(predictedNextDate);
                                 updateChart(cycleLengths);
                                 renderCalendar(predictedNextDate.getFullYear(), predictedNextDate.getMonth(), predictedNextDate);
                             }
@@ -738,45 +793,20 @@
                         }
                     }
 
-                    function requestNotificationPermission() {
-                        if ('Notification' in window && Notification.permission !== 'granted') {
-                            Notification.requestPermission().then(permission => {
-                                if (permission === 'granted') {
-                                    console.log('Notification permission granted.');
-                                }
-                            });
+                    function createGoogleCalendarEvent() {
+                        if (predictedNextDate) {
+                            const title = encodeURIComponent("Period Reminder");
+                            const details = encodeURIComponent("Hey, today is your period. Please update your period predictor. [http://jatinjha.me/Fa./](http://jatinjha.me/Fa./)");
+                            const location = encodeURIComponent("");
+                            const start = predictedNextDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
+                            const end = new Date(predictedNextDate.getTime() + 3600 * 1000).toISOString().replace(/-|:|\.\d\d\d/g, "");
+
+                            const calendarUrl = `https://calendar.google.com/calendar/r/eventedit?text=${title}&details=${details}&location=${location}&dates=${start}/${end}`;
+                            window.open(calendarUrl, '_blank');
+                        } else {
+                            alert("Predicted date is not available.");
                         }
                     }
-
-                    function scheduleNotification(predictedDate) {
-                        if ('Notification' in window && Notification.permission === 'granted') {
-                            const today = new Date();
-                            const timeToNotify = predictedDate.getTime() - today.getTime();
-                            if (timeToNotify > 0) {
-                                setTimeout(() => {
-                                    new Notification('Period Reminder', {
-                                        body: 'Your period is predicted to start today.',
-                                    });
-                                }, timeToNotify);
-                            }
-                            localStorage.setItem('notificationDate', predictedDate.toISOString());
-                        }
-                    }
-
-                    function checkNotification() {
-                        const storedNotificationDate = localStorage.getItem('notificationDate');
-                        if (storedNotificationDate) {
-                            const predictedDate = new Date(storedNotificationDate);
-                            const today = new Date();
-                            if (predictedDate.toDateString() === today.toDateString()) {
-                                new Notification('Period Reminder', {
-                                    body: 'Your period is predicted to start today.',
-                                });
-                            }
-                        }
-                    }
-
-                    requestNotificationPermission();
                 </script>
 
                 <script>
@@ -790,8 +820,6 @@
                         new workbox.strategies.CacheFirst()
                     ); A
                 </script>
-
-
             </main>
         </div>
     </div>
