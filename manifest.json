@@ -15,7 +15,7 @@
         }
     ],
     "start_url" : "https://jatin0jha.github.io/Fa./",
-    "display" : "minimal-ui",
+    "display" : "standalone",
     "theme_color" : "black",
     "background_color" : "white"
 }
