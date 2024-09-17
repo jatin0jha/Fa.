@@ -4,12 +4,12 @@
     "description" : "desc",
     "icons" : [
         {
-            "src" : "https://raw.githubusercontent.com/jatin0jha/Fa./76579a2fb3449398caef2d636a72b1059033b632/logo.svg",
+            "src" : "https://www.svgrepo.com/show/442634/calendar-minus.svg",
             "sizes" : "512x512",
             "type" : "image/png"
         },
         {
-            "src" : "https://raw.githubusercontent.com/jatin0jha/Fa./76579a2fb3449398caef2d636a72b1059033b632/logo.svg",
+            "src" : "https://www.svgrepo.com/show/442634/calendar-minus.svg",
             "sizes" : "144x144",
             "type" : "image/png"
         }
@@ -17,5 +17,5 @@
     "start_url" : "https://jatin0jha.github.io/Fa./",
     "display" : "standalone",
     "theme_color" : "black",
-    "background_color" : "white"
+    "background_color" : "black"
 }
