@@ -5,550 +5,427 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <title>Fa.</title>
-
     <link rel="manifest" href="manifest.json">
-
     <link rel="shortcut icon" href="https://www.svgrepo.com/show/303577/google-adwords-1-logo.svg" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Meow+Script&display=swap"
-        rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #0F1113;
-            color: white;
-            padding: 0;
-            margin: 0;
-            display: grid;
-            grid-template-columns: 200px auto;
-            height: 100vh;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
-
-        .profile-pic {
-            height: 100px;
-            aspect-ratio: 1;
-            background-color: red;
-
-            background-size: cover;
-            background-position: center;
-            border-radius: 50%;
-            margin: 0 auto;
-        }
-
-        .user-name {
-            margin: 10px;
-            text-align: center;
-        }
-
-        .edit-btn {
-            border: 1px solid rgb(163, 163, 163);
-            padding: 2px 12px;
-            margin: 0 auto;
-            border-radius: 20px;
-        }
-
-
-        .button-of-nav-which-will-work {
-            display: flex;
-            align-items: center;
-            margin: 10px auto;
-            padding: 12px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            width: 70%;
-            text-decoration: none;
-            color: white;
-        }
-
-        .button-of-nav-which-will-work:hover {
-            background-color: #1b1b1c;
-        }
-
-        .active-nav {
-            background-color: #353537;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 0 10px;
-        }
-
-        nav p {
-            margin: 0;
-        }
-
-        .right-content-main {
-            display: grid;
-            grid-template-rows: 50px auto;
-        }
-
-
-        .main-search-input {
-            background-color: transparent;
-            outline: none;
-            color: white;
-            border: none;
-        }
-
-        .nav-icon {
-            height: 20px;
-            margin-right: 5px;
-            aspect-ratio: 1;
-            background-size: cover;
-            filter: invert(100%);
-            -webkit-filter: invert(100%);
-            background-position: center;
-        }
-
-        .actual-content-finally {
-            height: calc(100vh - 50px);
-            overflow-y: scroll;
-            margin: 0 3px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #f1f1f100;
-        }
-
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 20px;
-        }
-
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-
-        main {
-            display: none;
-            padding: 10px;
-        }
-
-        main:target {
-            display: block;
-        }
-
-        #data table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        #data th,
-        #data td {
-            padding: 8px;
-            text-align: center;
-        }
-
-        #data tr:nth-child(even) {
-            background-color: #080a0e;
-        }
-
-        #data tr:nth-child(odd) {
-            background-color: #202630;
-        }
-
-        #data th {
-            background-color: #080a0e;
-            color: white;
-        }
-
-        #data input[type="date"] {
-            width: 100%;
-            box-sizing: border-box;
-            background-color: #00000000;
-            outline: none;
-            border: none;
-            filter: invert(1);
-        }
-
-        #date-input::-webkit-calendar-picker-indicator {
-            opacity: 0;
-            /* Hide the default calendar icon for webkit browsers */
-        }
-
-        #date-input::-webkit-inner-spin-button,
-        #date-input::-webkit-clear-button {
-            display: none;
-        }
-
-        #date-input::-moz-inner-spin-button,
-        #date-input::-moz-clear-button {
-            display: none;
-        }
-
-
-        #data button {
-            border-radius: 20px;
-            background-color: #FECACA;
-            padding: 4px 15px;
-            color: #6b3c3c;
-            border: none;
-            outline: none;
-            cursor: pointer;
-        }
-
-
-        .master-function {
-            background-color: rgb(0, 0, 0);
-            border-radius: 10px;
-            padding: 9px;
-            display: flex;
-            flex-direction: column;
-            width: 250px;
-            aspect-ratio: 1;
-        }
-
-        table {
-            width: 100%;
-        }
-
-        .dates-data {
-            color: rgba(255, 255, 255, 0.61);
-            text-decoration: none;
-            padding: 4px;
-            display: block;
-        }
-
-        .dates-data:hover {
-            background-color: rgb(75, 75, 75);
-            border-radius: 5px;
-        }
-
-        .days-of-week {
-            text-align: left;
-            font-weight: 350;
-        }
-
-        .active-date {
-            color: red;
-            cursor: pointer;
-        }
-
-        td {
-            color: rgb(157, 157, 157);
-        }
-
-
-        .predicted-date {
-            background-color: rgba(0, 255, 0, 0.3);
-            /* Adjust color for predicted date highlighting */
-        }
-
-        a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .stat-cards {
-            display: grid;
-            grid-template-columns: auto 260px;
-            align-items: center;
-            background-image: url('https://i.pinimg.com/originals/16/0a/28/160a28b2ac6c367734ba304bbc22a41f.gif');
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-        }
-
-        canvas {
-            background-color: #000000;
-            border-radius: 10px;
-            margin: 10px 0;
-            padding: 10px 0;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .kacha-papad-pakka-papad {
-            display: grid;
-            grid-template-columns: 600px auto;
-            align-items: center;
-        }
-
-
-        .for-phone {
-            display: none;
-        }
-
-        @media (max-width: 950px) {
-            .kacha-papad-pakka-papad {
-                display: grid;
-                grid-template-columns: auto;
-                align-items: center;
-            }
-
-            canvas {
-                background-color: #000000;
-                border-radius: 10px;
-                margin: 10px auto;
-                padding: 10px 0;
-                width: 100%;
-            }
-
-
-            #prediction {
-                height: 20vh;
-                align-items: center;
-            }
-
-            .master-function {
-                width: 96%;
-            }
-
-        }
-
-        @media (max-width: 625px) {
-            .right-content-main nav p {
-                display: none;
-            }
-
-            .for-phone {
-                display: flex;
-            }
-
-            .right-side-nav-content {
-                justify-content: space-between;
-                width: 100%;
-            }
-
-            body {
-                grid-template-columns: auto;
-            }
-
-            .nav-content-all-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                padding: 10px 0;
-                display: none;
-            }
-
-        }
-
-        @media (max-width: 425px) {
-            .stat-cards {
-                grid-template-columns: auto;
-            }
-        }
-
-        .bugir-menu {
-            cursor: pointer;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
+    <title>Period Prediction</title>
 </head>
 
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        font-family: monospace;
+        background-color: rgb(243, 243, 243);
+    }
+
+    .main-grid {
+        height: 100vh;
+        display: grid;
+        grid-template-rows: 52px calc(100vh - 52px);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.098), rgba(0, 0, 0, 0.098)), url('https://i.pinimg.com/originals/43/f9/32/43f932252dd3a97691bf754b989e2a77.gif');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .SlidingMessageBar {
+        height: 100vh;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #ffffff79;
+        overflow-y: scroll;
+        transition: 0.5s;
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .SlidingMessageBar .nav-btn {
+        width: calc(100% - 40px);
+        margin: 5px 10px;
+        padding: 10px;
+        border-radius: 10px;
+        outline: none;
+        background-color: rgb(58, 58, 58);
+        display: flex;
+        align-items: center;
+        border: none;
+        color: white;
+    }
+
+    .SlidingMessageBar .nav-btn img {
+        margin-right: 5px;
+        height: 20px;
+        filter: invert(1);
+    }
+
+    nav {
+        margin: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    nav a {
+        display: flex;
+        align-items: center;
+        border: 1px solid black;
+        padding: 5px 15px;
+        border-radius: 12px;
+    }
+
+    nav a img {
+        margin-right: 5px;
+    }
+
+    .main {
+        overflow-y: scroll;
+    }
+
+    .period-status {
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .period-status div button {
+        background-color: transparent;
+        outline: none;
+        border: 1px solid black;
+        padding: 5px 15px;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.432);
+        backdrop-filter: blur(10px);
+    }
+
+    .card {
+        padding: 15px;
+        background-color: white;
+        margin: 10px;
+        border-radius: 25px;
+    }
+
+    .card nav {
+        margin: 0;
+    }
+
+    .card p,
+    .card h4 {
+        margin: 10px 0;
+    }
+
+    .subCard {
+        padding: 10px;
+        border-radius: 15px;
+        height: 94px;
+        aspect-ratio: 7/5;
+    }
+
+    .subCard h3 {
+        margin: 0;
+    }
+
+    .subCard p {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.474);
+        margin: 5px 0;
+    }
+
+    .subCard img {
+        height: 50px;
+        filter: drop-shadow(0 0 10px white);
+    }
+
+    .imgflexer {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    .subCardScroll {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        overflow-x: scroll;
+        gap: 5px;
+    }
+
+    .statusCard {
+        height: 7px;
+        background-color: rgb(239, 239, 239);
+        border-radius: 10px;
+        width: 100%;
+    }
+
+    .periods {
+        height: 7px;
+        width: 35px;
+        background-color: rgb(255, 144, 144);
+        border-radius: 10px;
+    }
+
+    #stat-line {
+        width: 2px;
+        height: 10px;
+        background-color: black;
+        z-index: 1;
+    }
+
+    .master-function {
+        background-color: white;
+        margin: 10px;
+        border-radius: 25px;
+        padding: 15px;
+    }
+
+    .master-function table {
+        width: 100%;
+    }
+
+    .master-function table th {
+        text-align: left;
+    }
+
+    #monthYear {
+        text-align: center;
+        padding-bottom: 10px;
+    }
+
+    .active-date {
+        color: red;
+        cursor: pointer;
+        background-color: rgb(234, 234, 234);
+        border-radius: 5px;
+    }
+
+    .login-btn {
+        border: 1px solid black;
+        background: transparent;
+        margin: 15px auto;
+        padding: 5px 15px;
+    }
+
+    .login-btn img {
+        height: 20px;
+    }
+
+    #periodTable {
+        width: 95%;
+        margin: 10px auto;
+    }
+
+    #periodTable th {
+        text-align: left;
+    }
+
+    #periodTable input {
+        border: none;
+        outline: none;
+        background-color: transparent;
+    }
+
+    #periodTable button {
+        border: none;
+        outline: none;
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        background-color: red;
+    }
+
+    #periodTable button img {
+        filter: invert(1);
+    }
+
+    .add-data {
+        margin: 10px;
+        outline: none;
+        border: 1px solid black;
+        padding: 5px 15px;
+        border-radius: 10px;
+        background-color: transparent;
+    }
+
+    .days-of-week {
+        padding-bottom: 10px;
+    }
+
+    #calendarBody td {
+        padding: 5px 15px;
+        aspect-ratio: 1;
+    }
+</style>
+
 <body>
-
-    <div id="nav-content-all-grid" class="nav-content-all-grid" style="border-right: 1px solid rgb(63, 63, 63);">
-        <div style="display: flex; align-items: center; margin: 25px; font-size: 20px;">
-            <svg style="margin-right: 15px;" fill="#f3ff52" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
-                stroke="#f3ff52">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                    <title>ionicons-v5_logos</title>
-                    <path
-                        d="M505.57,234.62c-3.28-3.53-26.82-32.29-39.51-47.79-6.75-8.24-12.08-14.75-14.32-17.45l-.18-.22-.2-.21c-5.22-5.83-12.64-12.51-23.78-12.51a39.78,39.78,0,0,0-5.41.44c-.37.05-.75.11-1.15.15-2.45.27-10.06,1.5-28.14,4.48-14,2.29-35.11,5.77-38.31,6.07l-.71.06-.69.13c-10,1.78-16.62,6.22-19.56,13.19-1.55,3.68-3.22,11.15,2.94,19.86,1.53,2.22,6.83,9.56,15.94,22.17,6.06,8.4,12.87,17.82,18.75,26L259.9,275,150.66,96.05l-.2-.34-.23-.33-.44-.65C145.32,88.17,139.76,80,123.7,80h0c-1.13,0-2.31,0-3.63.11-4.6.25-21.42,1.57-40.89,3.11-21.49,1.69-50.9,4-54.72,4.1h-.73l-.79.08c-9.14.89-15.77,4.6-19.7,11-6.55,10.69-1.42,22.69.26,26.63C6.87,133,37.56,197.7,64.63,254.81c18,37.94,36.58,77.17,38.1,80.65a34.85,34.85,0,0,0,32.94,21.59,46.62,46.62,0,0,0,9.86-1.1l.21,0,.2-.05c13.86-3.38,57.83-14.54,89.2-22.59,1.9,3.32,3.9,6.83,6,10.44,21.93,38.5,37.9,66.35,43.16,73.46C287,421,295,432,310.06,432c5.46,0,10.46-1.4,15.74-2.89l1.53-.43.06,0h.06c10.53-3,150.69-52.16,157.87-55.35l.22-.1c5.44-2.41,13.66-6.05,16.18-15.4,1.65-6.12.18-12.33-4.38-18.46l-.07-.09-.07-.09c-.85-1.1-4-5.21-8.27-10.9-9.13-12.07-23.88-31.57-36.84-48.54,17.37-4.5,38.8-10.11,43.38-11.55,11.47-3.43,14.94-10.69,16-14.73C512.26,250.32,513.29,242.27,505.57,234.62Zm-320,58.19c-17.81,4.17-30.22,7.08-37.89,8.9-6.67-13.34-19.74-39.65-32.5-65.33C85.44,176.46,70.08,145.61,62,129.48l8.15-.7c13.34-1.15,31.61-2.72,41.78-3.57,16.76,28.26,74.32,125.3,96.3,162.3ZM427.58,172h0ZM310.06,416.4h0Zm53.67-56.95c-24.21,8-37.33,12.37-44.42,14.74-6.3-10.34-20.16-33.52-32.47-54.19l115.7-29.48c5,6.81,14.57,19.72,33.46,44.93C417.93,341.49,387.8,351.47,363.73,359.45ZM419.6,237.82l-23.76-31.53c13.67-2.39,21.54-3.77,26.15-4.6l12,14.88,11.94,14.82C437.73,233.38,428.19,235.71,419.6,237.82Z">
-                    </path>
-                </g>
-            </svg>
-            TEMPUS
-        </div>
-
-        <div>
-            <div id="profile-pic"
-                style="background-image: url('https://wallpapers-clan.com/wp-content/uploads/2023/01/aesthetic-anime-girl-pfp-3.jpg');"
-                class="profile-pic"></div>
-            <p class="user-name">
-                <input type="text" style="color: white; text-align: center; background-color: transparent;"
-                    id="user-name-input" style="border: none; background: transparent;" readonly>
-            </p>
-
-            <input type="text" id="profile-pic-url" class="hidden"
-                placeholder="Enter image URL" onchange="updateProfilePicture()">
-
-            <div style="width: min-content; margin:auto; cursor: pointer;"><a onclick="editProfile()"
-                    class="edit-btn">Edit</a><a href="javascript:void(0)" class="edit-btn hidden" id="save-btn"
-                    onclick="saveProfile()">Save</a></div>
-        </div>
-        <script>
-            function editProfile() {
-                const nameInput = document.getElementById('user-name-input');
-                const picUrlInput = document.getElementById('profile-pic-url');
-                nameInput.removeAttribute('readonly');
-                nameInput.style.border = '1px solid #ccc';
-                picUrlInput.classList.remove('hidden');
-                picUrlInput.style.background = 'transparent';
-                document.querySelector('.edit-btn').style.display = 'none';
-                document.getElementById('save-btn').classList.remove('hidden');
-            }
-
-            function saveProfile() {
-                const nameInput = document.getElementById('user-name-input');
-                const picUrlInput = document.getElementById('profile-pic-url');
-                nameInput.setAttribute('readonly', true);
-                nameInput.style.border = 'none';
-                nameInput.style.background = 'transparent';
-                picUrlInput.classList.add('hidden');
-                document.querySelector('.edit-btn').style.display = 'inline-block';
-                document.getElementById('save-btn').classList.add('hidden');
-
-                // Save to localStorage
-                localStorage.setItem('userName', nameInput.value);
-                localStorage.setItem('profilePic', picUrlInput.value || document.getElementById('profile-pic').style.backgroundImage.slice(5, -2));
-            }
-
-            function updateProfilePicture() {
-                const picUrlInput = document.getElementById('profile-pic-url');
-                if (picUrlInput.value) {
-                    document.getElementById('profile-pic').style.backgroundImage = `url(${picUrlInput.value})`;
-                }
-            }
-
-            function editProfilePicture() {
-                document.getElementById('profile-pic-url').focus();
-            }
-
-            // Load saved data from localStorage
-            document.addEventListener('DOMContentLoaded', () => {
-                const savedName = localStorage.getItem('userName');
-                const savedPic = localStorage.getItem('profilePic');
-                if (savedName) {
-                    document.getElementById('user-name-input').value = savedName;
-                }
-                if (savedPic) {
-                    document.getElementById('profile-pic').style.backgroundImage = `url(${savedPic})`;
-                }
-            });
-        </script>
-
-        <a href="#dashboard" class="button-of-nav-which-will-work active-nav">
-            <div class="nav-icon" style="background-image: url('https://www.svgrepo.com/show/459911/dashboard.svg');">
-            </div>
-            <div>Dashboard</div>
-        </a>
-        <a href="#data" class="button-of-nav-which-will-work">
-            <div class="nav-icon"
-                style="background-image: url('https://www.svgrepo.com/show/384697/database-data-base.svg');">
-            </div>
-            <div>Data</div>
-        </a>
-    </div>
-
-    <div class="right-content-main">
+    <div class="main-grid">
         <nav>
-            <p style="font-size: 25px; font-weight: 200; height: min-content;">Statistics</p>
-            <div class="right-side-nav-content" style="display: flex; height: min-content; align-items: center;">
-                <div style="display: flex;">
-                    <div class="nav-icon"
-                        style="background-image: url('https://www.svgrepo.com/show/522266/search.svg');"></div>
-                    <input class="main-search-input" type="search" placeholder="Search...">
+            <img src="https://www.svgrepo.com/show/459821/menu.svg" height="30px" onclick="openNav()">
+            <a onclick="createGoogleCalendarEvent();">
+                <img src="https://www.svgrepo.com/show/528864/bell-bing.svg" height="20px">
+                Notify
+            </a>
+            <div id="mySlidingMessageBar" class="SlidingMessageBar">
+                <div>
+                    <nav>
+                        <img onclick="closeNav()" height="30px" src="https://www.svgrepo.com/show/430775/back.svg">
+                    </nav>
+                    <div>
+                        <a onclick="showSection('home')" class="nav-btn">
+                            <img src="https://www.svgrepo.com/show/525381/home.svg" alt="Calendar"> Home
+                        </a>
+                        <a onclick="showSection('Analytics')" class="nav-btn">
+                            <img src="https://www.svgrepo.com/show/376750/align-top.svg" alt="Analytics"> Analytics
+                        </a>
+                        <a onclick="showSection('data')" class="nav-btn">
+                            <img src="https://www.svgrepo.com/show/457681/folder-file-fill.svg" alt="Analytics">Data
+                        </a>
+                    </div>
                 </div>
-
-                <a class="bugir-menu"
-                    style="padding: 10px; border: 1px solid white; border-radius: 10px; margin-left: 20px; display: flex; cursor: pointer;"
-                    onclick="createGoogleCalendarEvent();">
-                    <div class="nav-icon"
-                        style="background-image: url('https://www.svgrepo.com/show/528866/bell.svg'); margin: 0 5px 0 0; height: 20px;">
-                    </div>Notify
-                </a>
-
+                <a class="login-btn" style="margin-top: auto;"><img
+                        src="https://www.svgrepo.com/show/496336/login-1.svg" alt="">Login Someday</a>
             </div>
         </nav>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const buttons = document.querySelectorAll('.button-of-nav-which-will-work');
-                const sections = document.querySelectorAll('main');
-
-                buttons.forEach(button => {
-                    button.addEventListener('click', function (e) {
-                        e.preventDefault(); // Prevent the default link behavior
-
-                        // Remove active-nav class from all buttons
-                        buttons.forEach(btn => btn.classList.remove('active-nav'));
-
-                        // Add active-nav class to the clicked button
-                        this.classList.add('active-nav');
-
-                        // Get the target section ID from the button's href
-                        const targetId = this.getAttribute('href').substring(1);
-
-                        // Hide all sections
-                        sections.forEach(section => section.style.display = 'none');
-
-                        // Show the target section
-                        document.getElementById(targetId).style.display = 'block';
-                    });
+            function showSection(sectionId) {
+                // Hide all sections first
+                const sections = document.querySelectorAll('.page-main');
+                sections.forEach(section => {
+                    section.style.display = 'none';
                 });
 
-                // Initially hide all sections except the one corresponding to the active button
-                const activeButton = document.querySelector('.button-of-nav-which-will-work.active-nav');
-                const activeSectionId = activeButton.getAttribute('href').substring(1);
-                sections.forEach(section => section.style.display = 'none');
-                document.getElementById(activeSectionId).style.display = 'block';
-            });
+                // Show the selected section
+                const selectedSection = document.getElementById(sectionId);
+                if (selectedSection) {
+                    selectedSection.style.display = 'block';
+                }
+            }
         </script>
+        <div class="main">
+            <div id="home" class="page-main">
+                <div class="period-status">
+                    <div>
+                        <p id="prediction">
+                        </p>
+                        <button onclick="showSection('data')">Edit Data</button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <nav>
+                            <p>Cycle phase</p><img src="https://www.svgrepo.com/show/378504/arrow-cycle.svg"
+                                height="14px" alt="">
+                        </nav>
+                        <div class="subCardScroll">
+                            <div class="subCard" style="background-color: #FBFFAF;">
+                                <h3 id="fertileWindow""></h3>
+                                <p>Next Fertile</p>
+                                <div class=" imgflexer">
+                                    <div></div>
+                                    <img src="https://www.svgrepo.com/show/438977/leaf-organic-2.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="subCard" style="background-color: #FFDCA7;">
+                            <h3 id="ovulationDate"></h3>
+                            <p>Ovulation</p>
+                            <div class="imgflexer">
+                                <div></div>
+                                <img src="https://www.svgrepo.com/show/438969/organic-flora-2.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="subCard" style="background-color: #ffe2f5;">
+                            <p id="quote">Next Period</p>
+                            <div class="imgflexer">
+                                <div></div>
+                                <img src="https://www.svgrepo.com/show/133672/blood-drop.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="master-function" style="display: flex; justify-content: space-between;">
+                    <table>
+                        <th class="days-of-week">Su</th>
+                        <th class="days-of-week">Mo</th>
+                        <th class="days-of-week">Tu</th>
+                        <th class="days-of-week">We</th>
+                        <th class="days-of-week">Th</th>
+                        <th class="days-of-week">Fr</th>
+                        <th class="days-of-week">Sa</th>
+                        <thead>
+                            <tr>
+                                <th colspan="7" id="monthYear"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendarBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card">
+                    <nav>
+                        <h4>Cycle status</h4><img src="https://www.svgrepo.com/show/378504/arrow-cycle.svg"
+                            height="14px" alt="">
+                    </nav>
+                    <p style="margin: 0 0 20px 0; font-size: 12px; color: rgb(85, 85, 85);">Low - Chances of getting
+                        pregnent
+                    </p>
+                    <p id="currentDate"></p>
+                    <div style="display: flex; align-items: center;">
+                        <div id="stat-line" style=" margin: 0 -7% 0 7%;"></div>
+                        <div class="statusCard">
+                            <div class="periods"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p style="text-align: center;">Please click on notify to get notification</p>
+        </div>
+
+        <div class="page-main" id="data" style="display: none;">
+
+            <div class="card">
+                <table id="periodTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Days</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <button class="add-data" onclick="addRow()">Add Date</button>
+                <p>Please reload the page to to auto sort the dates 🙏</p>
+            </div>
+
+        </div>
+
+        <div id="Analytics" class="page-main" style="display: none;">
 
 
-        <div class="actual-content-finally">
             <main id="dashboard">
                 <div class="stat-cards">
                     <div>
-                        <div id="prediction" style="margin-top: 20px; max-width: 250px;text-align: center; margin: 0 auto; padding: 5px; border-radius: 10px;
-                        text-shadow:
-                        -1px -1px 0 #D37768,
-                        1px -1px 0 #D37768,
-                        -1px 1px 0 #D37768,
-                        1px 1px 0 #D37768;  
-                        "></div>
-                    </div>
-                    <div class="master-function" style="display: flex; justify-content: space-between;">
-                        <table>
-                            <th class="days-of-week">Su</th>
-                            <th class="days-of-week">Mo</th>
-                            <th class="days-of-week">Tu</th>
-                            <th class="days-of-week">We</th>
-                            <th class="days-of-week">Th</th>
-                            <th class="days-of-week">Fr</th>
-                            <th class="days-of-week">Sa</th>
-                            <thead>
-                                <tr>
-                                    <th colspan="7" id="monthYear"></th>
-                                </tr>
-                            </thead>
-                            <tbody id="calendarBody">
-                            </tbody>
-                        </table>
-
-                        <a href="#data" class="button-of-nav-which-will-work for-phone">
-                            <div class="nav-icon"
-                                style="background-image: url('https://www.svgrepo.com/show/384697/database-data-base.svg');">
-                            </div>
-                            <div>Edit Data</div>
-                        </a>
-
+                        <div
+                            style="margin-top: 20px; max-width: 250px;text-align: center; margin: 0 auto; padding: 5px; border-radius: 10px;">
+                        </div>
                     </div>
                 </div>
 
                 <div class="kacha-papad-pakka-papad">
-                    <canvas id="myChart"></canvas>
-                    <p style="text-align: center; max-width: 320px; margin: 0 auto;font-size: 27px;" id="quote">
-                        Loading...</p>
+                    <div class="card">
+                        <canvas id="myChart"></canvas>
+                    </div>
                     <script>
                         const quotes = [
                             "So jao didi.",
@@ -571,260 +448,382 @@
                         }
                         window.onload = generateQuote;
                     </script>
-
                 </div>
 
-            </main>
-
-            <main id="data">
-
-
-                <a href="#dashboard" class="button-of-nav-which-will-work active-nav mob-display">
-                    <div class="nav-icon"
-                        style="background-image: url('https://www.svgrepo.com/show/459911/dashboard.svg');">
-                    </div>
-                    <div>Back to Dashboard</div>
-                </a>
-                <div class="section">
-                    <table id="periodTable">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Days Since Last Period</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <button style="margin: 10px 0;" onclick="addRow()">Add Date</button>
-
-                </div>
-
-                <!-- notifications should be there - jeniliya -->
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-                        loadTableData();
-                        calculateDifferences();
-                    });
-
-                    let myChart;
-                    let predictedNextDate = null; // Make sure this is defined globally
-
-                    function addRow(date = '') {
-                        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
-                        const newRow = table.insertRow();
-
-                        const dateCell = newRow.insertCell(0);
-                        const diffCell = newRow.insertCell(1);
-                        const actionCell = newRow.insertCell(2);
-
-                        dateCell.innerHTML = `<input type="date" value="${date}" onchange="calculateDifferences(); saveTableData();">`;
-                        diffCell.innerText = '-';
-                        actionCell.innerHTML = `<button onclick="deleteRow(this)">Delete</button>`;
-
-                        calculateDifferences();
-                        saveTableData();
-                    }
-
-                    function deleteRow(button) {
-                        const row = button.parentNode.parentNode;
-                        row.parentNode.removeChild(row);
-                        calculateDifferences();
-                        saveTableData();
-                    }
-
-                    function calculateDifferences() {
-                        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
-                        const rows = table.rows;
-                        let previousDate = null;
-                        let totalDays = 0;
-                        let periodCount = 0;
-                        const cycleLengths = [];
-
-                        for (let i = 0; i < rows.length; i++) {
-                            const dateInput = rows[i].cells[0].getElementsByTagName('input')[0];
-                            const diffCell = rows[i].cells[1];
-
-                            if (dateInput.value) {
-                                const currentDate = new Date(dateInput.value);
-                                if (previousDate) {
-                                    const diffTime = Math.abs(currentDate - previousDate);
-                                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                                    diffCell.innerText = diffDays;
-                                    cycleLengths.push(diffDays);
-                                    totalDays += diffDays;
-                                    periodCount++;
-                                } else {
-                                    diffCell.innerText = '-';
-                                }
-                                previousDate = currentDate;
-                            } else {
-                                diffCell.innerText = '-';
-                                previousDate = null;
-                            }
-                        }
-
-                        if (periodCount > 0) {
-                            const avgCycleLength = totalDays / periodCount;
-                            const stdDev = calculateStandardDeviation(cycleLengths);
-                            const lastDateInput = rows[rows.length - 1].cells[0].getElementsByTagName('input')[0];
-                            if (lastDateInput.value) {
-                                const lastDate = new Date(lastDateInput.value);
-                                predictedNextDate = new Date(lastDate.getTime() + avgCycleLength * 24 * 60 * 60 * 1000);
-                                displayPrediction(predictedNextDate, stdDev);
-                                updateChart(cycleLengths);
-                                renderCalendar(predictedNextDate.getFullYear(), predictedNextDate.getMonth(), predictedNextDate);
-                            }
-                        } else {
-                            displayPrediction(null, null);
-                            updateChart([]);
-                            renderCalendar(new Date().getFullYear(), new Date().getMonth(), null);
-                        }
-                    }
-
-                    function calculateStandardDeviation(array) {
-                        const n = array.length;
-                        const mean = array.reduce((a, b) => a + b) / n;
-                        return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n);
-                    }
-
-                    function displayPrediction(predictedDate, stdDev) {
-                        const predictionDiv = document.getElementById('prediction');
-                        if (predictedDate) {
-                            const predictionDate = predictedDate.toISOString().split('T')[0];
-                            const lowerBound = new Date(predictedDate.getTime() - stdDev * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-                            const upperBound = new Date(predictedDate.getTime() + stdDev * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-                            predictionDiv.innerText = `Predicted Next Period Date: ${predictionDate} (± ${stdDev.toFixed(1)} days: ${lowerBound} to ${upperBound})`;
-                        } else {
-                            predictionDiv.innerText = '';
-                        }
-                    }
-
-                    function saveTableData() {
-                        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
-                        const rows = table.rows;
-                        const data = [];
-
-                        for (let i = 0; i < rows.length; i++) {
-                            const dateInput = rows[i].cells[0].getElementsByTagName('input')[0];
-                            if (dateInput.value) {
-                                data.push(dateInput.value);
-                            }
-                        }
-
-                        localStorage.setItem('periodData', JSON.stringify(data));
-                    }
-
-                    function loadTableData() {
-                        const data = JSON.parse(localStorage.getItem('periodData') || '[]');
-                        data.forEach(date => addRow(date));
-                    }
-
-                    function renderCalendar(year, month, predictedDate) {
-                        const calendarBody = document.getElementById('calendarBody');
-                        const monthYear = document.getElementById('monthYear');
-                        const firstDayOfMonth = new Date(year, month, 1);
-                        const lastDayOfMonth = new Date(year, month + 1, 0);
-                        const daysInMonth = lastDayOfMonth.getDate();
-                        const startingDay = firstDayOfMonth.getDay();
-
-                        const monthNames = ["January", "February", "March", "April", "May", "June",
-                            "July", "August", "September", "October", "November", "December"
-                        ];
-
-                        monthYear.textContent = `${monthNames[month]} ${year}`;
-
-                        let dateCells = '';
-                        let dateIncrement = 1;
-
-                        for (let i = 0; i < 6; i++) {
-                            let row = '<tr>';
-                            for (let j = 0; j < 7; j++) {
-                                if (i === 0 && j < startingDay) {
-                                    row += '<td></td>';
-                                } else if (dateIncrement > daysInMonth) {
-                                    break;
-                                } else {
-                                    const isPredicted = predictedDate && predictedDate.getDate() === dateIncrement && predictedDate.getMonth() === month && predictedDate.getFullYear() === year;
-
-                                    row += `<td${isPredicted ? ' class="active-date"' : ''}>${dateIncrement}</td>`;
-                                    dateIncrement++;
-                                }
-                            }
-                            row += '</tr>';
-                            dateCells += row;
-                        }
-
-                        calendarBody.innerHTML = dateCells;
-                    }
-
-                    function updateChart(cycleLengths) {
-                        const ctx = document.getElementById('myChart').getContext('2d');
-                        const data = {
-                            labels: cycleLengths.map((_, index) => `Cycle ${index + 1}`),
-                            datasets: [{
-                                label: 'Cycle Length in Days',
-                                data: cycleLengths,
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
-                        };
-
-                        const options = {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        };
-
-                        if (myChart) {
-                            myChart.data = data;
-                            myChart.options = options;
-                            myChart.update();
-                        } else {
-                            myChart = new Chart(ctx, {
-                                type: 'line',
-                                data: data,
-                                options: options
-                            });
-                        }
-                    }
-
-                    function createGoogleCalendarEvent() {
-                        if (predictedNextDate) {
-                            const title = encodeURIComponent("Period Reminder");
-                            const details = encodeURIComponent("Hey, today is your period. Please update your period predictor. [http://jatinjha.me/Fa./](http://jatinjha.me/Fa./)");
-                            const location = encodeURIComponent("");
-                            const start = predictedNextDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
-                            const end = new Date(predictedNextDate.getTime() + 3600 * 1000).toISOString().replace(/-|:|\.\d\d\d/g, "");
-
-                            const calendarUrl = `https://calendar.google.com/calendar/r/eventedit?text=${title}&details=${details}&location=${location}&dates=${start}/${end}`;
-                            window.open(calendarUrl, '_blank');
-                        } else {
-                            alert("Predicted date is not available.");
-                        }
-                    }
-                </script>
-
-                <script>
-                    importScripts(
-                        'https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js'
-                    );
-
-                    // This will work!
-                    workbox.routing.registerRoute(
-                        ({ request }) => request.destination === 'image',
-                        new workbox.strategies.CacheFirst()
-                    ); A
-                </script>
             </main>
         </div>
+        <div style="display: flex; align-items: center; justify-content: center; margin: 5px 20px;">made
+            with&#xA0;<img src="https://jatin0jha.github.io/asset/heart.svg" alt=""></div>
     </div>
-
+    </div>
 </body>
+<script>
+    function openNav() {
+        document.getElementById("mySlidingMessageBar").style.width = "70%";
+        // Delay the attachment of the event listener to prevent immediate close
+        setTimeout(() => {
+            document.addEventListener('click', handleOutsideClick);
+        }, 0);
+    }
+
+    function closeNav() {
+        document.getElementById("mySlidingMessageBar").style.width = "0";
+        document.removeEventListener('click', handleOutsideClick);
+    }
+
+    function handleOutsideClick(event) {
+        const slidingMessageBar = document.getElementById("mySlidingMessageBar");
+        if (!slidingMessageBar.contains(event.target)) {
+            closeNav();
+        }
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        loadTableData();
+        calculateDifferences();
+    });
+
+    let myChart;
+    let predictedNextDate = null; // Make sure this is defined globally
+
+    function addRow(date = '') {
+        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow();
+        const dateCell = newRow.insertCell(0);
+        const diffCell = newRow.insertCell(1);
+        const actionCell = newRow.insertCell(2);
+        dateCell.innerHTML = `<input type="date" value="${date}" onchange="calculateDifferences(); saveTableData(); sortTable();">`;
+        diffCell.innerText = '-';
+        actionCell.innerHTML = `<button onclick="deleteRow(this)"><img src="https://www.svgrepo.com/show/488895/delete-1.svg" height="20px"></button>`;
+        calculateDifferences();
+        saveTableData();
+        sortTable(); // Sort the table whenever a new row is added
+    }
+
+    function deleteRow(button) {
+        const row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        calculateDifferences();
+        saveTableData();
+        sortTable(); // Re-sort the table after deletion
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentDateElement = document.getElementById('currentDateHeader');
+        const currentDate = new Date();
+
+        // Format the current date as needed (e.g., Sep 24)
+        const options = { month: 'short', day: 'numeric' };
+        const formattedDate = currentDate.toLocaleDateString('en-US', options);
+
+        currentDateElement.innerText = formattedDate;
+
+        // Call calculateDifferences to show the predicted next fertile date
+        calculateDifferences();
+    });
+
+    function calculateDifferences() {
+    const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
+    const rows = table.rows;
+    let previousDate = null;
+    let totalDays = 0;
+    let periodCount = 0;
+    const cycleLengths = [];
+    const currentDate = new Date(); // Current date for calculating days passed
+
+    for (let i = 0; i < rows.length; i++) {
+        const dateInput = rows[i].cells[0].getElementsByTagName('input')[0];
+        const diffCell = rows[i].cells[1];
+        if (dateInput.value) {
+            const rowDate = new Date(dateInput.value);
+            if (previousDate) {
+                const diffTime = Math.abs(rowDate - previousDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                diffCell.innerText = diffDays;
+                cycleLengths.push(diffDays);
+                totalDays += diffDays;
+                periodCount++;
+            } else {
+                diffCell.innerText = '-';
+            }
+            previousDate = rowDate;
+        } else {
+            diffCell.innerText = '-';
+            previousDate = null;
+        }
+    }
+    if (periodCount > 0) {
+        const avgCycleLength = totalDays / periodCount;
+        const stdDev = calculateStandardDeviation(cycleLengths);
+        const lastDateInput = rows[rows.length - 1].cells[0].getElementsByTagName('input')[0];
+        if (lastDateInput.value) {
+            const lastDate = new Date(lastDateInput.value);
+            const predictedNextDate = new Date(lastDate.getTime() + avgCycleLength * 24 * 60 * 60 * 1000);
+
+            // Calculate ovulation date and fertile window
+            const ovulationDate = new Date(lastDate.getTime() + (avgCycleLength - 14) * 24 * 60 * 60 * 1000);
+            const fertileStartDate = new Date(ovulationDate.getTime() - 5 * 24 * 60 * 60 * 1000);
+            const fertileEndDate = new Date(ovulationDate.getTime() + 1 * 24 * 60 * 60 * 1000);
+
+            displayPrediction(predictedNextDate, stdDev);
+            displayFertileWindow(fertileStartDate, fertileEndDate, ovulationDate);
+            updateChart(cycleLengths);
+            renderCalendar(predictedNextDate.getFullYear(), predictedNextDate.getMonth(), predictedNextDate);
+
+            // Calculate margin percentage
+            const daysPassed = Math.ceil((currentDate - lastDate) / (1000 * 60 * 60 * 24));
+            const cyclePercentage = (daysPassed / avgCycleLength) * 100;
+            const marginValue = Math.min(cyclePercentage, 100); // Cap at 100% for margin
+
+            // Update the margin
+            const statLine = document.getElementById('stat-line');
+            statLine.style.margin = `0 -${marginValue}% 0 ${marginValue}%`;
+        }
+    } else {
+        displayPrediction(null, null);
+        updateChart([]);
+        renderCalendar(new Date().getFullYear(), new Date().getMonth(), null);
+
+        // Reset margin if no periods
+        const statLine = document.getElementById('stat-line');
+        statLine.style.margin = '0 -7% 0 7%';
+    }
+}
+
+// Dummy functions for placeholders
+function calculateStandardDeviation(values) {
+    const mean = values.reduce((a, b) => a + b, 0) / values.length;
+    return Math.sqrt(values.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / values.length);
+}
+
+function displayPrediction(date, stdDev) { /* Implementation */ }
+function displayFertileWindow(startDate, endDate, ovulationDate) { /* Implementation */ }
+function updateChart(cycleLengths) { /* Implementation */ }
+function renderCalendar(year, month, predictedDate) { /* Implementation */ }
+
+    function displayFertileWindow(fertileStartDate, fertileEndDate, ovulationDate) {
+        const fertileWindowElement = document.getElementById('fertileWindow');
+        const ovulationDateElement = document.getElementById('ovulationDate');
+
+        const options = { month: 'short', day: 'numeric' };
+
+        const formattedFertileStart = fertileStartDate.toLocaleDateString('en-US', options);
+        const formattedFertileEnd = fertileEndDate.toLocaleDateString('en-US', options);
+        const formattedOvulationDate = ovulationDate.toLocaleDateString('en-US', options);
+
+        fertileWindowElement.innerHTML = `${formattedFertileStart}`;
+        ovulationDateElement.innerHTML = `${formattedOvulationDate}`;
+    }
+
+
+
+    function calculateStandardDeviation(array) {
+        const n = array.length;
+        const mean = array.reduce((a, b) => a + b) / n;
+        return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n);
+    }
+
+    function displayPrediction(predictedDate, stdDev) {
+        const predictionDiv = document.getElementById('prediction');
+        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
+        const lastDateInput = table.rows[table.rows.length - 1].cells[0].getElementsByTagName('input')[0];
+
+        if (predictedDate && lastDateInput.value) {
+            const lastPeriodDate = new Date(lastDateInput.value);
+            const currentDate = new Date();
+
+            // Calculate days since the last period
+            const diffTimeSinceLastPeriod = Math.abs(currentDate - lastPeriodDate);
+            const daysSinceLastPeriod = Math.ceil(diffTimeSinceLastPeriod / (1000 * 60 * 60 * 24));
+
+            // Calculate nth day
+            const diffTime = Math.abs(predictedDate - lastPeriodDate);
+            const nthDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const predictionDate = predictedDate.toISOString().split('T')[0];
+            const lowerBound = new Date(predictedDate.getTime() - stdDev * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            const upperBound = new Date(predictedDate.getTime() + stdDev * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+            // Display prediction with nth day and days since last period
+            predictionDiv.innerHTML = `
+                Predicted Date: <strong>${predictionDate}</strong>
+                <p>(± ${stdDev.toFixed(1)} days: ${lowerBound} to ${upperBound})</p>
+                <h2>Day ${daysSinceLastPeriod}</h2>`;
+        } else {
+            predictionDiv.innerHTML = '';
+        }
+    }
+
+    function saveTableData() {
+        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
+        const rows = table.rows;
+        const data = [];
+        for (let i = 0; i < rows.length; i++) {
+            const dateInput = rows[i].cells[0].getElementsByTagName('input')[0];
+            if (dateInput.value) {
+                data.push(dateInput.value);
+            }
+        }
+        localStorage.setItem('periodData', JSON.stringify(data));
+    }
+
+    function loadTableData() {
+        const data = JSON.parse(localStorage.getItem('periodData') || '[]');
+        data.forEach(date => addRow(date));
+    }
+
+    function renderCalendar(year, month, predictedDate) {
+        const calendarBody = document.getElementById('calendarBody');
+        const monthYear = document.getElementById('monthYear');
+        const firstDayOfMonth = new Date(year, month, 1);
+        const lastDayOfMonth = new Date(year, month + 1, 0);
+        const daysInMonth = lastDayOfMonth.getDate();
+        const startingDay = firstDayOfMonth.getDay();
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        monthYear.textContent = `${monthNames[month]} ${year}`;
+        let dateCells = '';
+        let dateIncrement = 1;
+        for (let i = 0; i < 6; i++) {
+            let row = '<tr>';
+            for (let j = 0; j < 7; j++) {
+                if (i === 0 && j < startingDay) {
+                    row += '<td></td>';
+                } else if (dateIncrement > daysInMonth) {
+                    break;
+                } else {
+                    const isPredicted = predictedDate && predictedDate.getDate() === dateIncrement && predictedDate.getMonth() === month && predictedDate.getFullYear() === year;
+                    row += `<td${isPredicted ? ' class="active-date"' : ''}>${dateIncrement}</td>`;
+                    dateIncrement++;
+                }
+            }
+            row += '</tr>';
+            dateCells += row;
+        }
+        calendarBody.innerHTML = dateCells;
+    }
+
+    function updateChart(cycleLengths) {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const data = {
+            labels: cycleLengths.map((_, index) => `Cycle ${index + 1}`),
+            datasets: [{
+                label: 'Cycle Length in Days',
+                data: cycleLengths,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+        const options = {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        };
+        if (myChart) {
+            myChart.data = data;
+            myChart.options = options;
+            myChart.update();
+        } else {
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: options
+            });
+        }
+    }
+
+    function createGoogleCalendarEvent() {
+        if (predictedNextDate) {
+            const title = encodeURIComponent("Period Reminder");
+            const details = encodeURIComponent("Hey, today is your period. Please update your period predictor. [http://jatinjha.me/Fa./](http://jatinjha.me/Fa./)");
+            const location = encodeURIComponent("");
+            const start = predictedNextDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
+            const end = new Date(predictedNextDate.getTime() + 3600 * 1000).toISOString().replace(/-|:|\.\d\d\d/g, "");
+
+            const calendarUrl = `https://calendar.google.com/calendar/r/eventedit?text=${title}&details=${details}&location=${location}&dates=${start}/${end}`;
+            window.open(calendarUrl, '_blank');
+        } else {
+            alert("Predicted date is not available.");
+        }
+    }
+    function sortTable() {
+        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
+        const rowsArray = Array.from(table.rows);
+
+        rowsArray.sort((rowA, rowB) => {
+            const dateAInput = rowA.cells[0].getElementsByTagName('input')[0].value;
+            const dateBInput = rowB.cells[0].getElementsByTagName('input')[0].value;
+
+            // Parse the date strings into valid Date objects
+            const dateA = dateAInput ? new Date(dateAInput) : null;
+            const dateB = dateBInput ? new Date(dateBInput) : null;
+
+            // Handle empty or invalid date inputs
+            if (!dateA && !dateB) return 0; // If both are empty/invalid, keep their order
+            if (!dateA) return 1;  // Move invalid dateA to the bottom
+            if (!dateB) return -1; // Move invalid dateB to the bottom
+
+            // Sort based on date values
+            return dateA - dateB;
+        });
+
+        // Re-append sorted rows to the table
+        rowsArray.forEach(row => table.appendChild(row));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentDateElement = document.getElementById('currentDate');
+        const currentDate = new Date();
+        const options = { month: 'short', day: 'numeric' };
+        const formattedDate = currentDate.toLocaleDateString('en-US', options);
+        currentDateElement.innerText = formattedDate;
+    });
+
+    function updateStatLineMargin(cyclePercentage) {
+        const statLine = document.getElementById('stat-line');
+        if (!statLine) {
+            console.error('Stat line element not found.');
+            return;
+        }
+
+        console.log('Cycle percentage:', cyclePercentage);
+
+        // Ensure cyclePercentage is between 0 and 100
+        const clampedPercentage = Math.min(Math.max(cyclePercentage, 0), 100);
+
+        // Compute margin percentage based on cycle completion
+        const marginPercentage = (clampedPercentage - 50) * 2; // Example adjustment, you can modify this logic
+        console.log('Calculated margin percentage:', marginPercentage);
+
+        // Update margin dynamically
+        statLine.style.margin = `0 -${marginPercentage}% 0 ${marginPercentage}%`;
+    }
+    function updateStatLineMargin(cyclePercentage) {
+        const statLine = document.getElementById('stat-line');
+        if (!statLine) {
+            console.error('Stat line element not found.');
+            return;
+        }
+
+        console.log('Cycle percentage:', cyclePercentage);
+
+        // Ensure cyclePercentage is between 0 and 100
+        const clampedPercentage = Math.min(Math.max(cyclePercentage, 0), 100);
+
+        // Compute margin percentage based on cycle completion
+        const marginPercentage = (clampedPercentage - 50) * 2; // Example adjustment, you can modify this logic
+        console.log('Calculated margin percentage:', marginPercentage);
+
+        // Update margin dynamically
+        statLine.style.margin = `0 -${marginPercentage}% 0 ${marginPercentage}%`;
+    }
+
+</script>
 
 </html>
