@@ -85,10 +85,6 @@
         overflow-y: scroll;
     }
 
-    .page-main h2{
-        margin: 0;
-    }
-
     .period-status {
         aspect-ratio: 1;
         display: flex;
@@ -171,7 +167,7 @@
 
     .periods {
         height: 7px;
-        width: 35px;
+        width: 17.25%;
         background-color: rgb(255, 144, 144);
         border-radius: 10px;
     }
@@ -267,6 +263,65 @@
         padding: 5px 15px;
         aspect-ratio: 1;
     }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.474);
+        display: block;
+    }
+
+    .startForm {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 50vh;
+        background-color: rgb(255, 255, 255);
+        border-radius: 30px 30px 0 0;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .startForm h1 {
+        text-align: center;
+    }
+
+    .startForm p {
+        text-align: center;
+    }
+
+    .startForm form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .startForm form input {
+        display: flex;
+        flex-direction: column;
+        margin: 5px 0 5px 5px;
+    }
+
+    .startForm form input[type=date] {
+        background-color: transparent;
+        border: 1px solid rgb(118, 118, 118);
+        padding: 5px 10px;
+        border-radius: 10px;
+    }
+
+    .startForm form input[type=submit] {
+        max-width: max-content;
+        padding: 5px 15px;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        margin-left: auto;
+    }
 </style>
 
 <body>
@@ -298,21 +353,6 @@
                         src="https://www.svgrepo.com/show/496336/login-1.svg" alt="">Login Someday</a>
             </div>
         </nav>
-        <script>
-            function showSection(sectionId) {
-                // Hide all sections first
-                const sections = document.querySelectorAll('.page-main');
-                sections.forEach(section => {
-                    section.style.display = 'none';
-                });
-
-                // Show the selected section
-                const selectedSection = document.getElementById(sectionId);
-                if (selectedSection) {
-                    selectedSection.style.display = 'block';
-                }
-            }
-        </script>
         <div class="main">
             <div id="home" class="page-main">
                 <div class="period-status">
@@ -378,9 +418,6 @@
                         <h4>Cycle status</h4><img src="https://www.svgrepo.com/show/378504/arrow-cycle.svg"
                             height="14px" alt="">
                     </nav>
-                    <p style="margin: 0 0 20px 0; font-size: 12px; color: rgb(85, 85, 85);">Low - Chances of getting
-                        pregnent
-                    </p>
                     <p id="currentDate"></p>
                     <div style="display: flex; align-items: center;">
                         <div id="stat-line" style=" margin: 0 -7% 0 7%;"></div>
@@ -395,9 +432,7 @@
         </div>
 
         <div class="page-main" id="data" style="display: none;">
-            <div class="card">
-                <h2>Data</h2>
-            </div>
+
             <div class="card">
                 <table id="periodTable">
                     <thead>
@@ -430,33 +465,8 @@
 
                 <div class="kacha-papad-pakka-papad">
                     <div class="card">
-                <h2>Analysis</h2>
-                    </div>
-                    <div class="card">
                         <canvas id="myChart"></canvas>
                     </div>
-                    <script>
-                        const quotes = [
-                            "So jao didi.",
-                            "Take a chill pill",
-                            "chocolate khalo 😉!",
-                            "Red velvet cake 🍰",
-                            "you don't need to work today",
-                            "Duniya jaye khaddey mai",
-                            "Let me do ur work: 01125532553",
-                            "paani pe le behn",
-                            "U deserve momos",
-                            "Relaxation is not lazy",
-                            "sometimes it's better to set easy",
-                            "sometimes ur first love is sleep (soja!)"
-                        ];
-
-                        function generateQuote() {
-                            const randomIndex = Math.floor(Math.random() * quotes.length);
-                            document.getElementById('quote').innerText = quotes[randomIndex];
-                        }
-                        window.onload = generateQuote;
-                    </script>
                 </div>
 
             </main>
@@ -465,7 +475,46 @@
             with&#xA0;<img src="https://jatin0jha.github.io/asset/heart.svg" alt=""></div>
     </div>
     </div>
+    <div class="overlay" id="overlay">
+        <div class="startForm">
+            <div>
+                <h1>Getting started🎉</h1>
+                <form id="startForm">
+                    <label for="lastDate">Last Date</label>
+                    <input type="date" name="lastDate" id="lastDate">
+                    <label for="secondLastDate">2nd Last Date</label>
+                    <input type="date" name="secondLastDate" id="secondLastDate">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <p>You need to tell us a lil bit about yourself 🤗</p>
+        </div>
+    </div>
 </body>
+
+<script>
+    const quotes = [
+        "So jao didi.",
+        "Take a chill pill",
+        "chocolate khalo 😉!",
+        "Red velvet cake 🍰",
+        "you don't need to work today",
+        "Duniya jaye khaddey mai",
+        "Let me do ur work: 01125532553",
+        "paani pe le behn",
+        "U deserve momos",
+        "Relaxation is not lazy",
+        "sometimes it's better to set easy",
+        "sometimes ur first love is sleep (soja!)"
+    ];
+
+    function generateQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        document.getElementById('quote').innerText = quotes[randomIndex];
+    }
+    window.onload = generateQuote;
+</script>
+
 <script>
     function openNav() {
         document.getElementById("mySlidingMessageBar").style.width = "70%";
@@ -489,13 +538,29 @@
 </script>
 
 <script>
+    function showSection(sectionId) {
+        // Hide all sections first
+        const sections = document.querySelectorAll('.page-main');
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
+
+        // Show the selected section
+        const selectedSection = document.getElementById(sectionId);
+        if (selectedSection) {
+            selectedSection.style.display = 'block';
+        }
+    }
+</script>
+
+<script>
     document.addEventListener('DOMContentLoaded', () => {
         loadTableData();
         calculateDifferences();
     });
 
     let myChart;
-    let predictedNextDate = null; // Make sure this is defined globally
+    let predictedNextDate = null;
 
     function addRow(date = '') {
         const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
@@ -508,7 +573,7 @@
         actionCell.innerHTML = `<button onclick="deleteRow(this)"><img src="https://www.svgrepo.com/show/488895/delete-1.svg" height="20px"></button>`;
         calculateDifferences();
         saveTableData();
-        sortTable(); // Sort the table whenever a new row is added
+        sortTable();
     }
 
     function deleteRow(button) {
@@ -516,117 +581,145 @@
         row.parentNode.removeChild(row);
         calculateDifferences();
         saveTableData();
-        sortTable(); // Re-sort the table after deletion
+        sortTable();
     }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const currentDateElement = document.getElementById('currentDateHeader');
-        const currentDate = new Date();
-
-        // Format the current date as needed (e.g., Sep 24)
-        const options = { month: 'short', day: 'numeric' };
-        const formattedDate = currentDate.toLocaleDateString('en-US', options);
-
-        currentDateElement.innerText = formattedDate;
-
-        // Call calculateDifferences to show the predicted next fertile date
-        calculateDifferences();
-    });
 
     function calculateDifferences() {
-    const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
-    const rows = table.rows;
-    let previousDate = null;
-    let totalDays = 0;
-    let periodCount = 0;
-    const cycleLengths = [];
-    const currentDate = new Date(); // Current date for calculating days passed
+        const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
+        const rows = table.rows;
+        let previousDate = null;
+        let totalDays = 0;
+        let periodCount = 0;
+        const cycleLengths = [];
+        const currentDate = new Date();
 
-    for (let i = 0; i < rows.length; i++) {
-        const dateInput = rows[i].cells[0].getElementsByTagName('input')[0];
-        const diffCell = rows[i].cells[1];
-        if (dateInput.value) {
-            const rowDate = new Date(dateInput.value);
-            if (previousDate) {
-                const diffTime = Math.abs(rowDate - previousDate);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                diffCell.innerText = diffDays;
-                cycleLengths.push(diffDays);
-                totalDays += diffDays;
-                periodCount++;
+        for (let i = 0; i < rows.length; i++) {
+            const dateInput = rows[i].cells[0].getElementsByTagName('input')[0];
+            const diffCell = rows[i].cells[1];
+
+            if (dateInput.value) {
+                const rowDate = new Date(dateInput.value);
+                if (isNaN(rowDate.getTime())) {
+                    diffCell.innerText = '-';
+                    continue;
+                }
+                if (previousDate) {
+                    const diffTime = Math.abs(rowDate - previousDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    diffCell.innerText = diffDays;
+                    cycleLengths.push(diffDays);
+                    totalDays += diffDays;
+                    periodCount++;
+                } else {
+                    diffCell.innerText = '-';
+                }
+                previousDate = rowDate;
             } else {
                 diffCell.innerText = '-';
+                previousDate = null;
             }
-            previousDate = rowDate;
+        }
+
+        if (periodCount > 0) {
+            const avgCycleLength = totalDays / periodCount;
+            const stdDev = calculateStandardDeviation(cycleLengths);
+            const lastDateInput = rows[rows.length - 1].cells[0].getElementsByTagName('input')[0];
+
+            if (lastDateInput.value) {
+                const lastDate = new Date(lastDateInput.value);
+                predictedNextDate = new Date(lastDate.getTime() + avgCycleLength * 24 * 60 * 60 * 1000);
+                const ovulationDate = new Date(lastDate.getTime() + (avgCycleLength - 14) * 24 * 60 * 60 * 1000);
+                const fertileStartDate = new Date(ovulationDate.getTime() - 5 * 24 * 60 * 60 * 1000);
+                const fertileEndDate = new Date(ovulationDate.getTime() + 1 * 24 * 60 * 60 * 1000);
+
+                displayPrediction(predictedNextDate, stdDev);
+                displayFertileWindow(fertileStartDate, fertileEndDate, ovulationDate);
+                updateChart(cycleLengths);
+                renderCalendar(predictedNextDate.getFullYear(), predictedNextDate.getMonth(), predictedNextDate);
+                const daysPassed = Math.ceil((currentDate - lastDate) / (1000 * 60 * 60 * 24));
+                const cyclePercentage = (daysPassed / avgCycleLength) * 100;
+                const marginValue = Math.min(cyclePercentage, 100);
+                const statLine = document.getElementById('stat-line');
+                statLine.style.margin = `0 -${marginValue}% 0 ${marginValue}%`;
+            }
         } else {
-            diffCell.innerText = '-';
-            previousDate = null;
-        }
-    }
-    if (periodCount > 0) {
-        const avgCycleLength = totalDays / periodCount;
-        const stdDev = calculateStandardDeviation(cycleLengths);
-        const lastDateInput = rows[rows.length - 1].cells[0].getElementsByTagName('input')[0];
-        if (lastDateInput.value) {
-            const lastDate = new Date(lastDateInput.value);
-            const predictedNextDate = new Date(lastDate.getTime() + avgCycleLength * 24 * 60 * 60 * 1000);
-
-            // Calculate ovulation date and fertile window
-            const ovulationDate = new Date(lastDate.getTime() + (avgCycleLength - 14) * 24 * 60 * 60 * 1000);
-            const fertileStartDate = new Date(ovulationDate.getTime() - 5 * 24 * 60 * 60 * 1000);
-            const fertileEndDate = new Date(ovulationDate.getTime() + 1 * 24 * 60 * 60 * 1000);
-
-            displayPrediction(predictedNextDate, stdDev);
-            displayFertileWindow(fertileStartDate, fertileEndDate, ovulationDate);
-            updateChart(cycleLengths);
-            renderCalendar(predictedNextDate.getFullYear(), predictedNextDate.getMonth(), predictedNextDate);
-
-            // Calculate margin percentage
-            const daysPassed = Math.ceil((currentDate - lastDate) / (1000 * 60 * 60 * 24));
-            const cyclePercentage = (daysPassed / avgCycleLength) * 100;
-            const marginValue = Math.min(cyclePercentage, 100); // Cap at 100% for margin
-
-            // Update the margin
+            displayPrediction(null, null);
+            updateChart([]);
+            renderCalendar(new Date().getFullYear(), new Date().getMonth(), null);
             const statLine = document.getElementById('stat-line');
-            statLine.style.margin = `0 -${marginValue}% 0 ${marginValue}%`;
+            statLine.style.margin = '0 -7% 0 7%';
         }
-    } else {
-        displayPrediction(null, null);
-        updateChart([]);
-        renderCalendar(new Date().getFullYear(), new Date().getMonth(), null);
 
-        // Reset margin if no periods
-        const statLine = document.getElementById('stat-line');
-        statLine.style.margin = '0 -7% 0 7%';
+
     }
-}
 
-// Dummy functions for placeholders
-function calculateStandardDeviation(values) {
-    const mean = values.reduce((a, b) => a + b, 0) / values.length;
-    return Math.sqrt(values.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / values.length);
-}
+    function createGoogleCalendarEvent() {
+        if (predictedNextDate) {
+            const title = encodeURIComponent("Period Reminder");
+            const details = encodeURIComponent("Hey, today is your period. Please update your period predictor. [Click Here](http://jatin0jha.github.io/Fa./)");
+            const location = encodeURIComponent("");
+            const start = predictedNextDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
+            const end = new Date(predictedNextDate.getTime() + 3600 * 1000).toISOString().replace(/-|:|\.\d\d\d/g, "");
 
-function displayPrediction(date, stdDev) { /* Implementation */ }
-function displayFertileWindow(startDate, endDate, ovulationDate) { /* Implementation */ }
-function updateChart(cycleLengths) { /* Implementation */ }
-function renderCalendar(year, month, predictedDate) { /* Implementation */ }
+            const calendarUrl = `https://calendar.google.com/calendar/r/eventedit?text=${title}&details=${details}&location=${location}&dates=${start}/${end}`;
+            window.open(calendarUrl, '_blank');
+        } else {
+            alert("Predicted date is not available.");
+        }
+    }
+
+    function displayPrediction(date, stdDev) { /* Implementation */ }
+    function displayFertileWindow(startDate, endDate, ovulationDate) { /* Implementation */ }
+    function updateChart(cycleLengths) { /* Implementation */ }
+    function renderCalendar(year, month, predictedDate) { /* Implementation */ }
+
 
     function displayFertileWindow(fertileStartDate, fertileEndDate, ovulationDate) {
         const fertileWindowElement = document.getElementById('fertileWindow');
         const ovulationDateElement = document.getElementById('ovulationDate');
 
         const options = { month: 'short', day: 'numeric' };
-
         const formattedFertileStart = fertileStartDate.toLocaleDateString('en-US', options);
         const formattedFertileEnd = fertileEndDate.toLocaleDateString('en-US', options);
         const formattedOvulationDate = ovulationDate.toLocaleDateString('en-US', options);
 
-        fertileWindowElement.innerHTML = `${formattedFertileStart}`;
+        fertileWindowElement.innerHTML = `${formattedFertileStart} - ${formattedFertileEnd}`;
         ovulationDateElement.innerHTML = `${formattedOvulationDate}`;
+
+        const currentDate = new Date();
+        updatePregnancyChances(fertileStartDate, fertileEndDate, ovulationDate, currentDate);
     }
 
+    function updatePregnancyChances(fertileStartDate, fertileEndDate, ovulationDate, currentDate) {
+        const chancesElement = document.getElementById('chancesOfGettingPregnant');
 
+        if (!fertileStartDate || !fertileEndDate || !currentDate || !ovulationDate || !chancesElement) {
+            return;
+        }
+
+        const dayDiff = Math.floor((currentDate - ovulationDate) / (1000 * 60 * 60 * 24));
+
+        let chances;
+        if (dayDiff === -3) chances = "27%";
+        else if (dayDiff === -2) chances = "33%";
+        else if (dayDiff === -1) chances = "41%";
+        else if (dayDiff === 0) chances = "20%";
+        else if (dayDiff === 1) chances = "8%";
+        else if (currentDate < fertileStartDate) chances = "Medium";
+        else chances = "Low";
+
+        chancesElement.innerText = `${chances}`;
+    }
+
+    const cycleLength = 28;
+    const today = new Date();
+    const ovulationDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 14 - today.getDate() % cycleLength);
+    const fertileStartDate = new Date(ovulationDate);
+    fertileStartDate.setDate(ovulationDate.getDate() - 5);
+    const fertileEndDate = new Date(ovulationDate);
+    fertileEndDate.setDate(ovulationDate.getDate() + 1);
+
+    displayFertileWindow(fertileStartDate, fertileEndDate, ovulationDate);
 
     function calculateStandardDeviation(array) {
         const n = array.length;
@@ -643,11 +736,9 @@ function renderCalendar(year, month, predictedDate) { /* Implementation */ }
             const lastPeriodDate = new Date(lastDateInput.value);
             const currentDate = new Date();
 
-            // Calculate days since the last period
             const diffTimeSinceLastPeriod = Math.abs(currentDate - lastPeriodDate);
             const daysSinceLastPeriod = Math.ceil(diffTimeSinceLastPeriod / (1000 * 60 * 60 * 24));
 
-            // Calculate nth day
             const diffTime = Math.abs(predictedDate - lastPeriodDate);
             const nthDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
@@ -655,7 +746,6 @@ function renderCalendar(year, month, predictedDate) { /* Implementation */ }
             const lowerBound = new Date(predictedDate.getTime() - stdDev * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
             const upperBound = new Date(predictedDate.getTime() + stdDev * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-            // Display prediction with nth day and days since last period
             predictionDiv.innerHTML = `
                 Predicted Date: <strong>${predictionDate}</strong>
                 <p>(± ${stdDev.toFixed(1)} days: ${lowerBound} to ${upperBound})</p>
@@ -747,20 +837,6 @@ function renderCalendar(year, month, predictedDate) { /* Implementation */ }
         }
     }
 
-    function createGoogleCalendarEvent() {
-        if (predictedNextDate) {
-            const title = encodeURIComponent("Period Reminder");
-            const details = encodeURIComponent("Hey, today is your period. Please update your period predictor. [http://jatinjha.me/Fa./](http://jatinjha.me/Fa./)");
-            const location = encodeURIComponent("");
-            const start = predictedNextDate.toISOString().replace(/-|:|\.\d\d\d/g, "");
-            const end = new Date(predictedNextDate.getTime() + 3600 * 1000).toISOString().replace(/-|:|\.\d\d\d/g, "");
-
-            const calendarUrl = `https://calendar.google.com/calendar/r/eventedit?text=${title}&details=${details}&location=${location}&dates=${start}/${end}`;
-            window.open(calendarUrl, '_blank');
-        } else {
-            alert("Predicted date is not available.");
-        }
-    }
     function sortTable() {
         const table = document.getElementById('periodTable').getElementsByTagName('tbody')[0];
         const rowsArray = Array.from(table.rows);
@@ -769,20 +845,16 @@ function renderCalendar(year, month, predictedDate) { /* Implementation */ }
             const dateAInput = rowA.cells[0].getElementsByTagName('input')[0].value;
             const dateBInput = rowB.cells[0].getElementsByTagName('input')[0].value;
 
-            // Parse the date strings into valid Date objects
             const dateA = dateAInput ? new Date(dateAInput) : null;
             const dateB = dateBInput ? new Date(dateBInput) : null;
 
-            // Handle empty or invalid date inputs
-            if (!dateA && !dateB) return 0; // If both are empty/invalid, keep their order
-            if (!dateA) return 1;  // Move invalid dateA to the bottom
-            if (!dateB) return -1; // Move invalid dateB to the bottom
+            if (!dateA && !dateB) return 0;
+            if (!dateA) return 1;
+            if (!dateB) return -1;
 
-            // Sort based on date values
             return dateA - dateB;
         });
 
-        // Re-append sorted rows to the table
         rowsArray.forEach(row => table.appendChild(row));
     }
 
@@ -803,14 +875,11 @@ function renderCalendar(year, month, predictedDate) { /* Implementation */ }
 
         console.log('Cycle percentage:', cyclePercentage);
 
-        // Ensure cyclePercentage is between 0 and 100
         const clampedPercentage = Math.min(Math.max(cyclePercentage, 0), 100);
 
-        // Compute margin percentage based on cycle completion
-        const marginPercentage = (clampedPercentage - 50) * 2; // Example adjustment, you can modify this logic
+        const marginPercentage = (clampedPercentage - 50) * 2;
         console.log('Calculated margin percentage:', marginPercentage);
 
-        // Update margin dynamically
         statLine.style.margin = `0 -${marginPercentage}% 0 ${marginPercentage}%`;
     }
     function updateStatLineMargin(cyclePercentage) {
@@ -819,20 +888,41 @@ function renderCalendar(year, month, predictedDate) { /* Implementation */ }
             console.error('Stat line element not found.');
             return;
         }
-
         console.log('Cycle percentage:', cyclePercentage);
-
-        // Ensure cyclePercentage is between 0 and 100
         const clampedPercentage = Math.min(Math.max(cyclePercentage, 0), 100);
-
-        // Compute margin percentage based on cycle completion
-        const marginPercentage = (clampedPercentage - 50) * 2; // Example adjustment, you can modify this logic
+        const marginPercentage = (clampedPercentage - 50) * 2;
         console.log('Calculated margin percentage:', marginPercentage);
-
-        // Update margin dynamically
         statLine.style.margin = `0 -${marginPercentage}% 0 ${marginPercentage}%`;
     }
-
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Check localStorage on page load
+        const savedData = JSON.parse(localStorage.getItem('periodData') || '[]');
+        if (savedData.length > 0) {
+            document.getElementById('overlay').style.display = 'none';
+        } else {
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        // Form submission
+        document.getElementById('startForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const lastDate = document.getElementById('lastDate').value;
+            const secondLastDate = document.getElementById('secondLastDate').value;
+
+            // Save data to localStorage
+            if (lastDate && secondLastDate) {
+                const dates = [lastDate, secondLastDate];
+                localStorage.setItem('periodData', JSON.stringify(dates));
+
+                // Reload the page after saving
+                location.reload();
+            }
+        });
+    });
+</script>
+
 
 </html>
