@@ -352,10 +352,50 @@
         margin-left: 10px;
     }
 
-    svg{
+    svg {
         height: 60px;
         width: min-content;
     }
+
+    .review-form{
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        height: 80vh;
+        justify-content: center;
+    }
+
+    .review-form textarea{
+        padding: 5px;
+        border-radius: 10px;
+        border: 1px solid rgb(0, 0, 0);
+        background-color: rgba(255, 255, 255, 0.34);
+        backdrop-filter: blur(10px);
+        outline: none;
+    }
+
+    .review-form input[type=submit]{
+        max-width: min-content;
+        margin: 5px 0;
+        padding: 3px 10px;
+        border-radius: 10px;
+        border: 1px solid rgb(0, 0, 0);
+        background-color: rgba(255, 255, 255, 0.34);
+        backdrop-filter: blur(10px);
+        outline: none;
+        margin-left: auto;
+    }
+    .review-form input[type=text]{
+        max-width: min-content;
+        margin: 5px 0;
+        padding: 5px;
+        border-radius: 10px;
+        border: 1px solid rgb(0, 0, 0);
+        background-color: rgba(255, 255, 255, 0.34);
+        backdrop-filter: blur(10px);
+        outline: none;
+    }
+    
 </style>
 
 <body>
@@ -384,6 +424,9 @@
                         </a>
                         <a onclick="showSection('data')" class="nav-btn">
                             <img src="https://www.svgrepo.com/show/457681/folder-file-fill.svg" alt="Analytics">Data
+                        </a>
+                        <a onclick="showSection('review')" class="nav-btn">
+                            <img src="https://www.svgrepo.com/show/527286/pen-new-square.svg" alt="Analytics">Review
                         </a>
                     </div>
                 </div>
@@ -590,6 +633,54 @@
             </div>
 
         </div>
+
+
+        <div id="review" class="page-main" style="display: none;">
+            <form class="review-form" id="reviewForm">
+                <h1>Review</h1>
+                <p>These reviews will be kept secret 🤫 gaali mt dena please 🥺</p>
+                <input type="text" id="name" placeholder="name" required>
+                <textarea id="reviewText" rows="4" placeholder="Please share a short review" required></textarea>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        
+        <script>
+            document.getElementById('reviewForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+                
+                // Get form data
+                const name = document.getElementById('name').value;
+                const reviewText = document.getElementById('reviewText').value;
+        
+                // Prepare payload for Discord webhook
+                const webhookPayload = {
+                    content: `**New Review Submitted**\n**Name:** ${name}\n**Review:** ${reviewText}`
+                };
+        
+                // Send data to Discord webhook
+                fetch('https://discord.com/api/webhooks/1296522840509517897/HwgS2anuqozLUbTGNSZIKsGQLbrTvOoCMCsHx9e8nJQvBeguAZabN78AopTJbSQCU8KH', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(webhookPayload),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Thank you for your review! It has been submitted.');
+                        document.getElementById('reviewForm').reset(); // Reset the form
+                    } else {
+                        alert('There was an error submitting your review. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error submitting your review. Please try again.');
+                });
+            });
+        </script>
+        
 
         <div id="Analytics" class="page-main" style="display: none;">
 
