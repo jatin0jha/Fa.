@@ -107,7 +107,7 @@
         padding: 15px;
         background-color: white;
         margin: 10px;
-        border-radius: 25px;
+        border-radius: 15px;
     }
 
     .card nav {
@@ -182,7 +182,6 @@
     .master-function {
         background-color: white;
         margin: 10px;
-        border-radius: 25px;
         padding: 15px;
     }
 
@@ -192,6 +191,7 @@
 
     .master-function table th {
         text-align: left;
+        text-align: center;
     }
 
     #monthYear {
@@ -262,6 +262,7 @@
     #calendarBody td {
         padding: 5px 15px;
         aspect-ratio: 1;
+        text-align: center;
     }
 
     .overlay {
@@ -357,7 +358,7 @@
         width: min-content;
     }
 
-    .review-form{
+    .review-form {
         display: flex;
         flex-direction: column;
         margin: 10px;
@@ -365,7 +366,7 @@
         justify-content: center;
     }
 
-    .review-form textarea{
+    .review-form textarea {
         padding: 5px;
         border-radius: 10px;
         border: 1px solid rgb(0, 0, 0);
@@ -374,7 +375,7 @@
         outline: none;
     }
 
-    .review-form input[type=submit]{
+    .review-form input[type=submit] {
         max-width: min-content;
         margin: 5px 0;
         padding: 3px 10px;
@@ -385,7 +386,8 @@
         outline: none;
         margin-left: auto;
     }
-    .review-form input[type=text]{
+
+    .review-form input[type=text] {
         max-width: min-content;
         margin: 5px 0;
         padding: 5px;
@@ -395,7 +397,6 @@
         backdrop-filter: blur(10px);
         outline: none;
     }
-    
 </style>
 
 <body>
@@ -575,7 +576,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="master-function" style="display: flex; justify-content: space-between;">
+                <div class="master-function card" style="display: flex; justify-content: space-between;">
                     <table>
                         <th class="days-of-week">Su</th>
                         <th class="days-of-week">Mo</th>
@@ -607,14 +608,13 @@
                     </div>
                 </div>
             </div>
-
             <p style="text-align: center;">Please click on notify to get notification</p>
         </div>
 
         <div class="page-main" id="data" style="display: none;">
             <div class="card" style="display: flex; justify-content: space-between; align-items: center;">
                 <p class="title">Data</p>
-                <div></div>
+                <img onclick="showSection('home')" height="25px" src="https://www.svgrepo.com/show/525381/home.svg">
             </div>
             <div class="card">
                 <table id="periodTable">
@@ -628,12 +628,17 @@
                     <tbody>
                     </tbody>
                 </table>
-                <button class="add-data" onclick="addRow()">Add Date</button>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <button class="add-data" onclick="addRow()">Add Date</button>
+                    <button class="add-data" onclick="showSection('Analytics')"
+                        style="display: flex; align-items: center; "><img
+                            src="https://www.svgrepo.com/show/376750/align-top.svg" height="16px"
+                            alt="Analytics">Analytics</button>
+                </div>
                 <p>Please reload the page to to auto sort the dates 🙏</p>
             </div>
 
         </div>
-
 
         <div id="review" class="page-main" style="display: none;">
             <form class="review-form" id="reviewForm">
@@ -644,20 +649,20 @@
                 <input type="submit" value="Submit">
             </form>
         </div>
-        
+
         <script>
-            document.getElementById('reviewForm').addEventListener('submit', function(event) {
+            document.getElementById('reviewForm').addEventListener('submit', function (event) {
                 event.preventDefault(); // Prevent default form submission
-                
+
                 // Get form data
                 const name = document.getElementById('name').value;
                 const reviewText = document.getElementById('reviewText').value;
-        
+
                 // Prepare payload for Discord webhook
                 const webhookPayload = {
                     content: `**New Review Submitted**\n**Name:** ${name}\n**Review:** ${reviewText}`
                 };
-        
+
                 // Send data to Discord webhook
                 fetch('https://discord.com/api/webhooks/1296522840509517897/HwgS2anuqozLUbTGNSZIKsGQLbrTvOoCMCsHx9e8nJQvBeguAZabN78AopTJbSQCU8KH', {
                     method: 'POST',
@@ -666,25 +671,22 @@
                     },
                     body: JSON.stringify(webhookPayload),
                 })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Thank you for your review! It has been submitted.');
-                        document.getElementById('reviewForm').reset(); // Reset the form
-                    } else {
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Thank you for your review! It has been submitted.');
+                            document.getElementById('reviewForm').reset(); // Reset the form
+                        } else {
+                            alert('There was an error submitting your review. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
                         alert('There was an error submitting your review. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('There was an error submitting your review. Please try again.');
-                });
+                    });
             });
         </script>
-        
 
         <div id="Analytics" class="page-main" style="display: none;">
-
-
             <main id="dashboard">
                 <div class="stat-cards">
                     <div>
@@ -693,16 +695,16 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="kacha-papad-pakka-papad">
-                    <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;" class="card">
                         <p class="title">Analytics</p>
+
+                        <button class="add-data" style="margin: 0;" onclick="showSection('data')">Edit Data</button>
                     </div>
                     <div class="card">
                         <canvas id="myChart"></canvas>
                     </div>
                 </div>
-
             </main>
         </div>
         <div style="display: flex; align-items: center; justify-content: center; margin: 5px 20px;">made
@@ -1158,5 +1160,17 @@
     });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const scriptURL = "https://script.google.com/macros/s/AKfycbyBWiiLVZzb6eNJG-7onPddBaNkq3How4v4T0l_VfecyWSfKSNUmEDSuwzEVgsTZ7dGzA/exec"; // Replace with your Apps Script URL
+
+        fetch(scriptURL, {
+            method: "GET",
+            mode: "no-cors"
+        })
+            .then(() => console.log("Visit recorded successfully"))
+            .catch(err => console.error("Error recording visit:", err));
+    });
+</script>
 
 </html>
