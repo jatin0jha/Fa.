@@ -397,6 +397,15 @@
         backdrop-filter: blur(10px);
         outline: none;
     }
+
+    .offline {
+        /* Add styles for offline state */
+        filter: grayscale(100%);
+    }
+
+    .offline .online-only {
+        display: none;
+    }
 </style>
 
 <body>
@@ -729,6 +738,7 @@
 </body>
 
 <script>
+    // Just a random omment generator
     const quotes = [
         "So jao didi.",
         "Take a chill pill",
@@ -752,6 +762,7 @@
 </script>
 
 <script>
+    // for opening and closing of nav
     function openNav() {
         document.getElementById("mySlidingMessageBar").style.width = "70%";
         // Delay the attachment of the event listener to prevent immediate close
@@ -774,6 +785,7 @@
 </script>
 
 <script>
+    // for Switching between sections
     function showSection(sectionId) {
         // Hide all sections first
         const sections = document.querySelectorAll('.page-main');
@@ -790,6 +802,7 @@
 </script>
 
 <script>
+    // for handling form submission of dates and calculating the differences between them and saving them in local storage for future use them to give out all data
     document.addEventListener('DOMContentLoaded', () => {
         loadTableData();
         calculateDifferences();
@@ -1133,6 +1146,7 @@
 </script>
 
 <script>
+    // for handling form submission of dates and calculating the differences between them and saving them in local storage for future use them to give out all data
     document.addEventListener("DOMContentLoaded", function () {
         // Check localStorage on page load
         const savedData = JSON.parse(localStorage.getItem('periodData') || '[]');
@@ -1159,6 +1173,53 @@
         });
     });
 </script>
+
+<script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('ServiceWorker registration successful');
+                })
+                .catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+        });
+    }
+
+    // Add offline detection
+    window.addEventListener('online', function () {
+        console.log('Became online');
+        document.body.classList.remove('offline');
+    });
+
+    window.addEventListener('offline', function () {
+        console.log('Became offline');
+        document.body.classList.add('offline');
+    });
+
+    // Modify your existing code to handle offline state
+    function createGoogleCalendarEvent() {
+        if (!navigator.onLine) {
+            alert('This feature requires an internet connection');
+            return;
+        }
+        // ... rest of your existing calendar code
+    }
+
+    // Modify Chart.js initialization to work offline
+    function updateChart(cycleLengths) {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        if (!window.Chart) {
+            console.log('Chart.js not available, possibly offline');
+            return;
+        }
+        // ... rest of your existing chart code
+    }
+</script>
+
+<script src="service-worker.js"></script>
 
 <script src="counter.js"></script>
 
