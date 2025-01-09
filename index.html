@@ -1207,16 +1207,6 @@
         }
         // ... rest of your existing calendar code
     }
-
-    // Modify Chart.js initialization to work offline
-    function updateChart(cycleLengths) {
-        const ctx = document.getElementById('myChart').getContext('2d');
-        if (!window.Chart) {
-            console.log('Chart.js not available, possibly offline');
-            return;
-        }
-        // ... rest of your existing chart code
-    }
 </script>
 
 <script src="service-worker.js"></script>
