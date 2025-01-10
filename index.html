@@ -667,26 +667,23 @@
                 const name = document.getElementById('name').value;
                 const reviewText = document.getElementById('reviewText').value;
 
-                // Prepare payload for Discord webhook
-                const webhookPayload = {
-                    content: `**New Review Submitted**\n**Name:** ${name}\n**Review:** ${reviewText}`
+                // Prepare payload
+                const payload = {
+                    name: name,
+                    reviewText: reviewText
                 };
 
-                // Send data to Discord webhook
-                fetch('https://discord.com/api/webhooks/1296522840509517897/HwgS2anuqozLUbTGNSZIKsGQLbrTvOoCMCsHx9e8nJQvBeguAZabN78AopTJbSQCU8KH', {
+                fetch('https://script.google.com/macros/s/AKfycbzJTHAScK-hD3E7BbGKUxAS0FlHtm7XveXptJXYa6A7ACxnz8qwP-232Lpvq5kmS__S/exec', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(webhookPayload),
+                    mode: 'no-cors', // Add this line
+                    body: JSON.stringify(payload),
                 })
-                    .then(response => {
-                        if (response.ok) {
-                            alert('Thank you for your review! It has been submitted.');
-                            document.getElementById('reviewForm').reset(); // Reset the form
-                        } else {
-                            alert('There was an error submitting your review. Please try again.');
-                        }
+                    .then(() => {
+                        alert('Thank you for your review! It has been submitted.');
+                        document.getElementById('reviewForm').reset(); // Reset the form
                     })
                     .catch(error => {
                         console.error('Error:', error);
