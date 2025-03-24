@@ -416,7 +416,7 @@
                 <span class="bar2"></span>
                 <span class="bar3"></span>
             </div>
-            <a onclick="createGoogleCalendarEvent();">
+            <a style="cursor: pointer;" onclick="createGoogleCalendarEvent();">
                 <img src="https://www.svgrepo.com/show/528864/bell-bing.svg" height="20px">
                 Notify
             </a>
@@ -1183,26 +1183,6 @@
                     console.log('ServiceWorker registration failed: ', err);
                 });
         });
-    }
-
-    // Add offline detection
-    window.addEventListener('online', function () {
-        console.log('Became online');
-        document.body.classList.remove('offline');
-    });
-
-    window.addEventListener('offline', function () {
-        console.log('Became offline');
-        document.body.classList.add('offline');
-    });
-
-    // Modify your existing code to handle offline state
-    function createGoogleCalendarEvent() {
-        if (!navigator.onLine) {
-            alert('This feature requires an internet connection');
-            return;
-        }
-        // ... rest of your existing calendar code
     }
 </script>
 
